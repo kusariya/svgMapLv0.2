@@ -1081,7 +1081,9 @@ class SvgMap {
 						}
 						if ( childCategory != SvgMapElementType.POI && childCategory != SvgMapElementType.BITIMAGE && childCategory != SvgMapElementType.TEXT ){ // animation|iframe要素の場合、子svg文書を読み込む( htmlへの親要素埋め込み後に移動した 2014.6.5)
 							var childSVGPath = UtilFuncs.getImageURL(ip.href , docDir ); // 2016.10.14 関数化＆統合化
-							this.#loadSVG( childSVGPath , imageId , img , docId);
+							setTimeout(function(childSVGPath , imageId , img , docId){
+								this.#loadSVG( childSVGPath , imageId , img , docId)
+							}.bind(this),0, childSVGPath , imageId , img , docId);
 							
 							//  この部分の処理は、setLayerDivProps 関数に切り出しloadSVG側に移設 2017.9.29 (noCache処理のため)
 						}
