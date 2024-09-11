@@ -10,7 +10,8 @@ const mock_svgmapObj = {
     getSvgImages: jest.fn(),
     getRootLayersProps: jest.fn().mockReturnValue([]),
     getGeoViewBox: jest.fn().mockReturnValue({"x":0,"y":0,"width":0,"height":0}),
-    getMapCanvasSize: jest.fn().mockReturnValue({width: 1200, height: 800})
+    getMapCanvasSize: jest.fn().mockReturnValue({width: 1200, height: 800}),
+    registLayerUiSetter:  jest.fn().mockReturnValue()
 };
 
 const mock_mapViewerProps = {
