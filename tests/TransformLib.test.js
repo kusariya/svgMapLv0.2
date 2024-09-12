@@ -75,6 +75,7 @@ describe("unittest for TransformLib",()=>{
             const  mUtil = new MatrixUtil();
             matrix.setLinearCRS(0,1,2,3,4,5);
             let inv = mUtil.getInverseMatrix(matrix);
+            expect(inv).toEqual({ a: -1.5, b: 0.5, c: 1, d: -0, e: 1, f: -2 })
         });
     });
 });
