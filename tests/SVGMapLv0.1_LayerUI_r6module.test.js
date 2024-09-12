@@ -9,7 +9,7 @@ describe("unittest for LayerUI module",()=>{
         beforeEach(()=>{
             svgmaplayerui = new SvgMapLayerUI(mock_svgmapObj, false);
         });
-        it("ListMessageを登録する試験？", ()=>{
+        it("LayerList上のMessageを変更する試験", ()=>{
             // UIの表示上の問題だけなので簡素な試験としてます
             svgmaplayerui.setLayerListmessage("レイヤーリスト","レイヤー表示中");
         });
@@ -22,7 +22,7 @@ describe("unittest for LayerUI module",()=>{
             svgmaplayerui.getLayersCustomizer();
         });
     });
-    
+
     describe("target LayerSpecificUI",()=>{
         let svgmaplayerui, closeButton;
         beforeEach(()=>{
