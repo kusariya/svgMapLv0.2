@@ -27,7 +27,7 @@ describe("unittest for SvgMapAuthoringTool",()=>{
         // 引数の変数定義
         let targetDiv,poiDocId,cbFunc,cbFuncParam,getPointOnly,returnSvgElement,options;
         let title,metaData;
-        let childDiv, iconId, poiId;
+        let rootDocument, poiDiv, polyDiv, lineDiv, iconId, poiId;
         beforeEach(()=>{
             authoringtool = new SvgMapAuthoringTool(mock_svgmapObj, mock_mapViewerProps);
         });
@@ -36,10 +36,16 @@ describe("unittest for SvgMapAuthoringTool",()=>{
             //共通パーツ
             poiDocId = "i10";
             iconId = "#green";
+            rootDocument = new Document();
             targetDiv = document.createElement("div");
-            childDiv = document.createElement("div");
-            childDiv.setAttribute("id","poiEditor"); // ハードコーディングでごめんなさい
-            targetDiv.appendChild(childDiv);
+            targetDiv.setAttribute("id","main");
+            poiDiv = document.createElement("div");
+            polyDiv = document.createElement("div");
+            poiDiv.setAttribute("id","poiEditor"); // ハードコーディングでごめんなさい
+            polyDiv.setAttribute("id", "polyEditor");
+            rootDocument.appendChild(targetDiv);
+            targetDiv.appendChild(poiDiv);
+            targetDiv.appendChild(polyDiv);
         });
         
         it("test for cancelPointingPoiRegister.", ()=>{

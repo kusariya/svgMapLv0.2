@@ -24,6 +24,7 @@
   "type": "module",
   "jest": {
     "verbose": true,
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFiles":["./mocks/global.mock.js"]
   }
 }
