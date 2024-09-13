@@ -24,10 +24,22 @@ describe("unittest for SvgMapAuthoringTool",()=>{
     // setTargetObject
     describe("target authoringtool",()=>{
         let authoringtool;
+        // 引数の変数定義
+        let targetDiv,poiDocId,cbFunc,cbFuncParam,getPointOnly,returnSvgElement,options;
+        let title,metaData;
+        let childDiv, iconId, poiId;
         beforeEach(()=>{
-           
-            //window.jsts = {"geom":geom};
             authoringtool = new SvgMapAuthoringTool(mock_svgmapObj, mock_mapViewerProps);
+        });
+
+        beforeAll(()=>{
+            //共通パーツ
+            poiDocId = "i10";
+            iconId = "#green";
+            targetDiv = document.createElement("div");
+            childDiv = document.createElement("div");
+            childDiv.setAttribute("id","poiEditor"); // ハードコーディングでごめんなさい
+            targetDiv.appendChild(childDiv);
         });
         
         it("test for cancelPointingPoiRegister.", ()=>{
@@ -47,22 +59,16 @@ describe("unittest for SvgMapAuthoringTool",()=>{
         });
 
         it("test for initPOItools.", ()=>{
-            let aaa = document.createElement("a");
-            let targetDiv,poiDocId,cbFunc,cbFuncParam,getPointOnly,returnSvgElement,options;
-            let childDiv;
-            poiDocId = "i10";
-            targetDiv = document.createElement("div");
-            childDiv = document.createElement("div");
-            targetDiv.appendChild(childDiv);
+            authoringtool.initPOItools(targetDiv, poiDocId, cbFunc,cbFuncParam,getPointOnly,returnSvgElement,options);
         });
 
         it("test for initPOIregistTool.",()=>{
-            let targetDocument = document.createElement("a");
-            let targetDiv,poiDocId;
+            // 何も確認できてない単体試験です
+            authoringtool.initPOIregistTool(targetDiv,poiDocId,poiId,iconId,title,metaData,cbFunc,cbFuncParam,getPointOnly,returnSvgElement);
         });
 
-        it("test for modinitFreeHandTool",()=>{
-
+        it("test for initPolygonTools",()=>{
+            authoringtool.initPolygonTools(targetDiv, poiDocId);
         });
     });
 })
