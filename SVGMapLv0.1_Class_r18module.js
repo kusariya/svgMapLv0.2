@@ -1904,9 +1904,27 @@ class SvgMap {
 	setSummarizeCanvas(val){ this.#summarizeCanvas = val };
 	setUpdateCenterPos(...params){ return (this.#essentialUIs.setUpdateCenterPos(...params))};
 	setZoomRatio( ratio ){ this.#zoomPanManager.setZoomRatio( ratio) };
+
 	showModal(...params){ return (this.#mapTicker.showPoiProperty.showModal(...params))};
+	/**
+	 * @param  {String} hyperLink URL
+	 * @returns {None}
+	 */
 	showPage(...params){ return (this.#mapTicker.showPage(...params))};
+	/**
+	 * @param  {Object} target DOMのような気がする
+	 * @returns 戻り値なし
+	 */
 	showUseProperty(...params){ return (this.#mapTicker.showUseProperty(...params))};
+
+	/**
+	 * @param {Number} x 座標
+	 * @param {Number} y 座標
+	 * @param {Object} mat 2x2の変換行列
+	 * @param {Boolean} calcSize （用途不明） 
+	 * @param {Object} nonScaling 2x1の行列（用途不明） 
+	 * @returns 
+	 */
 	transform(...params){ return (this.#matUtil.transform(...params))};
 	updateLayerListUI=function(){
 		console.log("updateLayerListUI called  this:",this);
@@ -1914,7 +1932,17 @@ class SvgMap {
 			this.#updateLayerListUIint();
 		}
 	}.bind(this);
+	/**
+	 * 
+	 * @param  {undefined} params 引数なし
+	 * @returns 戻り値なし
+	 */
 	zoomdown(...params){ return (this.#zoomPanManager.zoomdown(...params))};
+	/**
+	 * 
+	 * @param  {...any} params 引数なし
+	 * @returns 戻り値なし
+	 */
 	zoomup(...params){ return (this.#zoomPanManager.zoomup(...params))};
 }
 
