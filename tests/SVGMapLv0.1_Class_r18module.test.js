@@ -18,20 +18,38 @@ describe("unittest for SVGMap Core Module", ()=>{
         
         let svgmap, result, element;
         beforeEach(async () => {
-            // mocking
+            //================================================================
+            // mocking 結構カオスになりそう
+            //================================================================
             jest.unstable_mockModule('../libs/MapTicker.js', () => ({
                 MapTicker: jest.fn().mockImplementation(() => ({
                     constructor: jest.fn().mockReturnValue('Mocked Hello!'),
                 })),
             }));
-                
+            jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
+                MapViewerProps: jest.fn().mockImplementation(() => ({
+                    constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+                    uaProps:{
+                        verIE: 13,
+                    },
+                    hasUaProps: jest.fn().mockReturnValue(false),
+                    setCssTransform: jest.fn().mockReturnValue()
+                })),
+            }));
+            jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
+                ZoomPanManager: jest.fn().mockImplementation(() => ({
+                    constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+                    zoomup:jest.fn().mockReturnValue()
+                })),
+            }));
+            //================================================================
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
+            svgmap.initLoad();
         });
 
-        it("parseEscapedCsvLine", ()=>{
-              
-            console.log("xxx");
+        it("zoomUp", ()=>{
+            svgmap.zoomup();
         });
     });
 });
