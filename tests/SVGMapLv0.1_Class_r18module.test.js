@@ -21,6 +21,12 @@ jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js', () => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!')
     })),
 }));
+jest.unstable_mockModule('../libs/MapTicker.js',()=>({
+    MapTicker: jest.fn().mockImplementation(()=>({ 
+        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+        showUseProperty: jest.fn().mockReturnValue()
+    })),
+}));
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
@@ -35,10 +41,17 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
         });
 
+        it("showUseProperty", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はMapTickerで確認
+            console.log(svgmap)
+            let result = svgmap.showUseProperty(); 
+        });
+        
         it("updateLayerListUI", ()=>{
             // ここではエラーがないこと程度しか確認してません。
-            // 詳細は呼び出し先のtransformlib.jsで確認
-            //let result = svgmap.updateLayerListUI(); なぜ起動するのか不明
+            // 詳細はSVGMapLv0.1_LayerUI_r6moduleで確認
+            let result = svgmap.updateLayerListUI(); //なぜ起動するのか不明
         });
        
         it("transform", ()=>{
