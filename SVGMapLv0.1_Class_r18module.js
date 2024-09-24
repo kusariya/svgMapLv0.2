@@ -1877,6 +1877,12 @@ class SvgMap {
 	setMapCanvas( mc ){ this.#mapViewerProps.mapCanvas = mc };
 	setMapCanvasCSS(...params){ return (this.#essentialUIs.setMapCanvasCSS(...params))};
 	setMapCanvasSize( mcs ){ this.#mapViewerProps.setMapCanvasSize( mcs ) };
+
+	/**
+	 * 
+	 * @param {String} layerId docIDとの違いが分からず。こっちがiX:Xは数字なのかもしれない
+	 * @param {Function} pcf レンダリングする前に実行したい関数をセットする（一般ユーザのユースケースが分からず）  
+	 */
 	setPreRenderController( layerId, pcf ){ // SVGMapLv0.1_PWAで使用
 		if ( typeof(pcf)=="function"){
 			if ( layerId ){
@@ -1896,7 +1902,22 @@ class SvgMap {
 	setResume( stat ){
 		this.#resumeManager.setResume( stat );
 	};
+
+	/**
+	 * 
+	 * @param  {} layerID_Numb_Title
+	 * @param  {} visible
+	 * @param  {} editing
+	 * @param  {} hashOption
+	 * @param  {} removeLayer 
+	 * @returns 
+	 */
 	setRootLayersProps(...params){ return (this.#layerManager.setRootLayersProps(...params))};
+
+	/**
+	 * 
+	 * @param {Object} rvb  ViewBox:画面中心座標と縦横の範囲と推測
+	 */
 	setRootViewBox(rvb){this.#mapViewerProps.setRootViewBox( rvb );};
 
 	/**

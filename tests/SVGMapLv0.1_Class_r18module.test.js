@@ -8,6 +8,12 @@ jest.unstable_mockModule('../libs/MapTicker.js', () => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
     })),
 }));
+jest.unstable_mockModule('../libs/LayerManager.js', () => ({
+    LayerManager: jest.fn().mockImplementation(() => ({
+        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+        setRootLayersProps: jest.fn().mockReturnValue()
+    })),
+}));
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
@@ -39,8 +45,6 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
-
-    
     describe("refer to own classes.",()=>{
         let svgmap, result, element;
         beforeEach(async () => {
@@ -55,7 +59,7 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
     });
     
-    describe("refer to MapTicker classes.",()=>{
+    describe("refer to LayerManager classes.",()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
@@ -64,6 +68,19 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
         });
 
+        it("setRootLayersProps", ()=>{
+            svgmap.setRootLayersProps(); 
+        });
+    });
+    
+    describe("refer to MapTicker classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
 
         it("setShowPoiProperty", ()=>{
             let propFunc = function(){};
@@ -103,6 +120,21 @@ describe("unittest for SVGMap Core Module", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はSVGMapLv0.1_LayerUI_r6moduleで確認
             let result = svgmap.updateLayerListUI(); //なぜ起動するのか不明
+        });
+    });
+
+    describe("refer to MapviewerProps classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+
+        it("test",()=>{
+            svgmap.setRootViewBox({x:10,y:100,width:800,height:300});
         });
     });
 
