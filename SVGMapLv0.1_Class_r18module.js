@@ -1899,7 +1899,14 @@ class SvgMap {
 	setRootLayersProps(...params){ return (this.#layerManager.setRootLayersProps(...params))};
 	setRootViewBox(rvb){this.#mapViewerProps.setRootViewBox( rvb );};
 	setShowPoiProperty(...params){ return (this.#mapTicker.showPoiProperty.setShowPoiProperty(...params))};
+
+	/**
+	 * ズームイン／アウト後のタイル読み込み開始タイマー
+	 * @param  {String} zoomInterval // msec
+	 * @returns 
+	 */
 	setSmoothZoomInterval(...params){ return (this.#zoomPanManager.setSmoothZoomInterval(...params))};
+
 	/**
 	 * 
 	 * @param  {String} zoomTransitionTime ズームイン／アウト時の遷移時間(たぶん msec)
