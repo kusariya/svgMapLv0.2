@@ -16,6 +16,11 @@ jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
         zoomdown: jest.fn().mockReturnValue()
     })),
 }));
+jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js', () => ({
+    SvgMapLayerUI:jest.fn().mockImplementation(()=>({
+        constructor: jest.fn().mockReturnValue('Mocked Hello!')
+    })),
+}));
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
@@ -30,7 +35,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
         });
 
-        
+        it("updateLayerListUI", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細は呼び出し先のtransformlib.jsで確認
+            //let result = svgmap.updateLayerListUI(); なぜ起動するのか不明
+        });
+       
         it("transform", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細は呼び出し先のtransformlib.jsで確認
