@@ -12,6 +12,7 @@ jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
         transform:jest.fn().mockReturnValue(),
+        setZoomRatio: jest.fn().mockReturnValue(),
         zoomup:jest.fn().mockReturnValue(),
         zoomdown: jest.fn().mockReturnValue()
     })),
@@ -36,8 +37,7 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 
 describe("unittest for SVGMap Core Module", ()=>{
     
-    describe("target SVGMap class",()=>{
-        
+    describe("refer to other classes.",()=>{
         let svgmap, result, element;
         beforeEach(async () => {
             
@@ -45,7 +45,7 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-
+        
         it("showModal", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はMapTickerで確認
@@ -74,6 +74,17 @@ describe("unittest for SVGMap Core Module", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細は呼び出し先のtransformlib.jsで確認
             svgmap.transform();
+        });
+        
+        it("setUpdateCenterPos", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はコール先のzoompanmanagerにて確認すること
+            svgmap.setUpdateCenterPos();
+        });
+        it("setZoomRatio", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はコール先のzoompanmanagerにて確認すること
+            svgmap.setZoomRatio(0);
         });
         it("zoomDown", ()=>{
             // ここではエラーがないこと程度しか確認してません。
