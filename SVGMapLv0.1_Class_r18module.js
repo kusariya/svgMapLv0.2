@@ -1900,7 +1900,13 @@ class SvgMap {
 	setRootViewBox(rvb){this.#mapViewerProps.setRootViewBox( rvb );};
 	setShowPoiProperty(...params){ return (this.#mapTicker.showPoiProperty.setShowPoiProperty(...params))};
 	setSmoothZoomInterval(...params){ return (this.#zoomPanManager.setSmoothZoomInterval(...params))};
+	/**
+	 * 
+	 * @param  {String} zoomTransitionTime ズームイン／アウト時の遷移時間(たぶん msec)
+	 * @returns {undefined}
+	 */
 	setSmoothZoomTransitionTime(...params){ return (this.#zoomPanManager.setSmoothZoomTransitionTime(...params))};
+
 	/**
 	 * 
 	 * @param {Boolean} val //Canvasの描画？を高速化するフラグ？らしい
