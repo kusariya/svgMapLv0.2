@@ -1901,19 +1901,41 @@ class SvgMap {
 	setShowPoiProperty(...params){ return (this.#mapTicker.showPoiProperty.setShowPoiProperty(...params))};
 	setSmoothZoomInterval(...params){ return (this.#zoomPanManager.setSmoothZoomInterval(...params))};
 	setSmoothZoomTransitionTime(...params){ return (this.#zoomPanManager.setSmoothZoomTransitionTime(...params))};
+	/**
+	 * 
+	 * @param {Boolean} val //Canvasの描画？を高速化するフラグ？らしい
+	 */
 	setSummarizeCanvas(val){ this.#summarizeCanvas = val };
-	setUpdateCenterPos(...params){ return (this.#essentialUIs.setUpdateCenterPos(...params))};
-	setZoomRatio( ratio ){ this.#zoomPanManager.setZoomRatio( ratio) };
 
+	/**
+	 * 
+	 * @param  {Function} func
+	 * @returns {undefined}
+	 */
+	setUpdateCenterPos(...params){ return (this.#essentialUIs.setUpdateCenterPos(...params))};
+
+	/**
+	 * 
+	 * @param {*} ratio 
+	 */
+	setZoomRatio( ratio ){ this.#zoomPanManager.setZoomRatio( ratio) };
+	
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns {undefined}
+	 */
 	showModal(...params){ return (this.#mapTicker.showPoiProperty.showModal(...params))};
+
 	/**
 	 * @param  {String} hyperLink URL
-	 * @returns {None}
+	 * @returns {undefined}
 	 */
 	showPage(...params){ return (this.#mapTicker.showPage(...params))};
+
 	/**
 	 * @param  {Object} target DOMのような気がする
-	 * @returns 戻り値なし
+	 * @returns {undefined}
 	 */
 	showUseProperty(...params){ return (this.#mapTicker.showUseProperty(...params))};
 
@@ -1926,6 +1948,11 @@ class SvgMap {
 	 * @returns 
 	 */
 	transform(...params){ return (this.#matUtil.transform(...params))};
+	/**
+	 * 
+	 * @param  {undefined} params 引数なし
+	 * @returns {undefined}
+	 */
 	updateLayerListUI=function(){
 		console.log("updateLayerListUI called  this:",this);
 		if ( typeof this.#updateLayerListUIint == "function" ){
@@ -1935,13 +1962,13 @@ class SvgMap {
 	/**
 	 * 
 	 * @param  {undefined} params 引数なし
-	 * @returns 戻り値なし
+	 * @returns {undefined}
 	 */
 	zoomdown(...params){ return (this.#zoomPanManager.zoomdown(...params))};
 	/**
 	 * 
 	 * @param  {...any} params 引数なし
-	 * @returns 戻り値なし
+	 * @returns {undefined}
 	 */
 	zoomup(...params){ return (this.#zoomPanManager.zoomup(...params))};
 }
