@@ -36,6 +36,22 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
+
+    
+    describe("refer to own classes.",()=>{
+        let svgmap, result, element;
+        beforeEach(async () => {
+            
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+
+        it("setSummarizeCanvas",()=>{
+            // 基本True（コード内にFalseは”だいぶ昔に消滅”と記述あり）
+            svgmap.setSummarizeCanvas(true);
+        });
+    });
     
     describe("refer to other classes.",()=>{
         let svgmap, result, element;
@@ -45,7 +61,7 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-        
+
         it("showModal", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はMapTickerで確認
