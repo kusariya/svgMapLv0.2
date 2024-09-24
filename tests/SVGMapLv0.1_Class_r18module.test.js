@@ -24,7 +24,12 @@ jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js', () => ({
 jest.unstable_mockModule('../libs/MapTicker.js',()=>({
     MapTicker: jest.fn().mockImplementation(()=>({ 
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
-        showUseProperty: jest.fn().mockReturnValue()
+        showUseProperty: jest.fn().mockReturnValue(),
+        showPage: jest.fn().mockReturnValue(),
+        showPoiProperty:
+            {
+                showModal: jest.fn().mockReturnValue()
+            }
     })),
 }));
 //================================================================
@@ -41,10 +46,21 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
         });
 
+        it("showModal", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はMapTickerで確認
+            let result = svgmap.showModal(); 
+        });
+
+        it("showPage", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はMapTickerで確認
+            let result = svgmap.showPage(); 
+        });
+        
         it("showUseProperty", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はMapTickerで確認
-            console.log(svgmap)
             let result = svgmap.showUseProperty(); 
         });
         
