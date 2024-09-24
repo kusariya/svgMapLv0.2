@@ -1,4 +1,3 @@
-
 import {jest} from '@jest/globals';
 
 //================================================================
@@ -12,6 +11,7 @@ jest.unstable_mockModule('../libs/MapTicker.js', () => ({
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+        transform:jest.fn().mockReturnValue(),
         zoomup:jest.fn().mockReturnValue(),
         zoomdown: jest.fn().mockReturnValue()
     })),
@@ -31,6 +31,11 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
 
         
+        it("transform", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細は呼び出し先のtransformlib.jsで確認
+            svgmap.transform();
+        });
         it("zoomDown", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はコール先のzoompanmanagerにて確認すること
