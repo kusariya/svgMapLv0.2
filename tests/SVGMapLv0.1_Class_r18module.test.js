@@ -11,6 +11,7 @@ jest.unstable_mockModule('../libs/MapTicker.js', () => ({
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+        setSmoothZoomTransitionTime: jest.fn().mockReturnValue(),
         transform:jest.fn().mockReturnValue(),
         setZoomRatio: jest.fn().mockReturnValue(),
         zoomup:jest.fn().mockReturnValue(),
@@ -92,6 +93,11 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.transform();
         });
         
+        it("setSmoothZoomTransitionTime", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はコール先のzoompanmanagerにて確認すること
+            svgmap.setSmoothZoomTransitionTime();
+        });
         it("setUpdateCenterPos", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はコール先のzoompanmanagerにて確認すること
