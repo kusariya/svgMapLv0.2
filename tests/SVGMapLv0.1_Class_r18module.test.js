@@ -11,6 +11,7 @@ jest.unstable_mockModule('../libs/MapTicker.js', () => ({
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+        setSmoothZoomInterval: jest.fn().mockReturnValue(),
         setSmoothZoomTransitionTime: jest.fn().mockReturnValue(),
         transform:jest.fn().mockReturnValue(),
         setZoomRatio: jest.fn().mockReturnValue(),
@@ -54,7 +55,8 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
     });
     
-    describe("refer to other classes.",()=>{
+    describe("refer to MapTicker classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
             
@@ -81,41 +83,65 @@ describe("unittest for SVGMap Core Module", ()=>{
             let result = svgmap.showUseProperty(); 
         });
         
+    });
+
+    describe("refer to SVGMapLv0.1_LayerUI_r6module classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
         it("updateLayerListUI", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はSVGMapLv0.1_LayerUI_r6moduleで確認
             let result = svgmap.updateLayerListUI(); //なぜ起動するのか不明
         });
-       
+    });
+
+    describe("refer to transformlib classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+
         it("transform", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細は呼び出し先のtransformlib.jsで確認
             svgmap.transform();
         });
-        
+    });
+
+    describe("refer to zoompanmanager classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+        // 以下の公開関数はコール先のzoompanmanagerにて確認すること
+        it("setSmoothZoomInterval", ()=>{
+            svgmap.setSmoothZoomInterval();
+        });
         it("setSmoothZoomTransitionTime", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はコール先のzoompanmanagerにて確認すること
             svgmap.setSmoothZoomTransitionTime();
         });
         it("setUpdateCenterPos", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はコール先のzoompanmanagerにて確認すること
             svgmap.setUpdateCenterPos();
         });
         it("setZoomRatio", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はコール先のzoompanmanagerにて確認すること
             svgmap.setZoomRatio(0);
         });
         it("zoomDown", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はコール先のzoompanmanagerにて確認すること
             svgmap.zoomdown();
         });
         it("zoomUp", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はコール先のzoompanmanagerにて確認すること
             svgmap.zoomup();
         });
     });
