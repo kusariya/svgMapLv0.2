@@ -23,7 +23,8 @@ jest.unstable_mockModule('../libs/MapTicker.js', () => ({
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
         constructor: jest.fn().mockReturnValue('Mocked Hello!'),
-        zoomup:jest.fn().mockReturnValue()
+        zoomup:jest.fn().mockReturnValue(),
+        zoomdown: jest.fn().mockReturnValue()
     })),
 }));
 //================================================================
@@ -40,6 +41,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
         });
 
+        
+        it("zoomDown", ()=>{
+            // ここではエラーがないこと程度しか確認してません。
+            // 詳細はコール先のzoompanmanagerにて確認すること
+            svgmap.zoomdown();
+        });
         it("zoomUp", ()=>{
             // ここではエラーがないこと程度しか確認してません。
             // 詳細はコール先のzoompanmanagerにて確認すること
