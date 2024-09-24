@@ -31,7 +31,8 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
         showPage: jest.fn().mockReturnValue(),
         showPoiProperty:
             {
-                showModal: jest.fn().mockReturnValue()
+                showModal: jest.fn().mockReturnValue(),
+                setShowPoiProperty: jest.fn().mockReturnValue()
             }
     })),
 }));
@@ -43,7 +44,6 @@ describe("unittest for SVGMap Core Module", ()=>{
     describe("refer to own classes.",()=>{
         let svgmap, result, element;
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
@@ -59,10 +59,15 @@ describe("unittest for SVGMap Core Module", ()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+        });
+
+
+        it("setShowPoiProperty", ()=>{
+            let propFunc = function(){};
+            let result = svgmap.setShowPoiProperty(propFunc, "i10"); 
         });
 
         it("showModal", ()=>{

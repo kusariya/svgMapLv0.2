@@ -1898,6 +1898,13 @@ class SvgMap {
 	};
 	setRootLayersProps(...params){ return (this.#layerManager.setRootLayersProps(...params))};
 	setRootViewBox(rvb){this.#mapViewerProps.setRootViewBox( rvb );};
+
+	/**
+	 * 特定のレイヤー・svg文書(いずれもIDで指定)もしくは、全体に対して別のプロパティ表示関数を指定する。
+	 * @param  {Function} func 
+	 * @param  {String} docId svg文書ID i*:*は数字
+	 * @returns {undefined}
+	 */
 	setShowPoiProperty(...params){ return (this.#mapTicker.showPoiProperty.setShowPoiProperty(...params))};
 
 	/**
