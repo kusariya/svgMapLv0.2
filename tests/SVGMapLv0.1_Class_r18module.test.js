@@ -1,17 +1,6 @@
 
 import {jest} from '@jest/globals';
 
-// ESM環境ではMock化不可　エラーメッセージ：require is not defined
-//  jest.mock("../libs/MapTicker",()=>{
-//      return {
-//          MapTicker:jest.fn().mockImplementation(() => {
-//              return {
-//                  method: jest.fn().mockReturnValue("aaaa")
-//              }
-//          })
-//      }
-//  });
-
 //================================================================
 // mocking 結構カオスになりそう
 //================================================================
