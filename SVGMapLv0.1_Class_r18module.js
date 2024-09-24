@@ -1874,8 +1874,18 @@ class SvgMap {
 	setGeoCenter(...params){ return (this.#essentialUIs.setGeoCenter(...params))};
 	setGeoViewPort(...params){ return (this.#essentialUIs.setGeoViewPort(...params))};
 	setLayerVisibility(...params){ return (this.#layerManager.setLayerVisibility(...params))};
+	
+	/**
+	 * 
+	 * @param {Object} mc 多分Objectだけど、MapViewerPropsの中で操作されてない
+	 */
 	setMapCanvas( mc ){ this.#mapViewerProps.mapCanvas = mc };
 	setMapCanvasCSS(...params){ return (this.#essentialUIs.setMapCanvasCSS(...params))};
+
+	/**
+	 * 
+	 * @param {Object} mcs x,y,width,height属性を含むMapCanvasSize
+	 */
 	setMapCanvasSize( mcs ){ this.#mapViewerProps.setMapCanvasSize( mcs ) };
 
 	/**

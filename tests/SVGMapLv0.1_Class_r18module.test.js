@@ -59,6 +59,25 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
     });
     
+    describe("refer to MapviewerProps classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+
+        it("setMapCanvasSize", ()=>{
+            svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+        });
+
+        it("setMapCanvas", ()=>{
+            let mapcanvas = new Object();
+            svgmap.setMapCanvas(mapcanvas);
+        })
+    });
+    
     describe("refer to LayerManager classes.",()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
