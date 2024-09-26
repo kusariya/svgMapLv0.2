@@ -92,7 +92,11 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setMapCanvas", ()=>{
             let mapcanvas = new Object();
             svgmap.setMapCanvas(mapcanvas);
-        })
+        });
+        
+        it("setMapCanvasSize", ()=>{
+            svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+        });
     });
     
     describe("refer to LayerManager classes.",()=>{
