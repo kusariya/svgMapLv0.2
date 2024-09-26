@@ -3,42 +3,59 @@ import {jest} from '@jest/globals';
 //================================================================
 // mocking 結構カオスになりそう
 //================================================================
-jest.unstable_mockModule('../libs/MapTicker.js', () => ({
-    MapTicker: jest.fn().mockImplementation(() => ({
-        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
+const mockMethod = jest.fn();
+
+//================================================================
+// mocking 結構カオスになりそう
+//================================================================
+
+jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
+    MapViewerProps: jest.fn().mockImplementation(() => ({
+        constructor: mockMethod,
+        hasUaProps: mockMethod,
+        uaProps:{
+            verIE: 6
+        },
+        mapCanvas:{
+            style:{
+                top: "",
+                left: ""
+            }
+        },
+        setMapCanvasSize: mockMethod,
+        setRootViewBox: mockMethod
     })),
 }));
 jest.unstable_mockModule('../libs/LayerManager.js', () => ({
     LayerManager: jest.fn().mockImplementation(() => ({
-        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
-        setRootLayersProps: jest.fn().mockReturnValue()
+        constructor: mockMethod,
+        setRootLayersProps: mockMethod
     })),
 }));
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
     ZoomPanManager: jest.fn().mockImplementation(() => ({
-        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
-        setSmoothZoomInterval: jest.fn().mockReturnValue(),
-        setSmoothZoomTransitionTime: jest.fn().mockReturnValue(),
-        transform:jest.fn().mockReturnValue(),
-        setZoomRatio: jest.fn().mockReturnValue(),
-        zoomup:jest.fn().mockReturnValue(),
-        zoomdown: jest.fn().mockReturnValue()
+        setSmoothZoomInterval: mockMethod,
+        setSmoothZoomTransitionTime: mockMethod,
+        transform:mockMethod,
+        setZoomRatio: mockMethod,
+        zoomup: mockMethod,
+        zoomdown: mockMethod
     })),
 }));
 jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js', () => ({
     SvgMapLayerUI:jest.fn().mockImplementation(()=>({
-        constructor: jest.fn().mockReturnValue('Mocked Hello!')
+        constructor: mockMethod
     })),
 }));
 jest.unstable_mockModule('../libs/MapTicker.js',()=>({
     MapTicker: jest.fn().mockImplementation(()=>({ 
-        constructor: jest.fn().mockReturnValue('Mocked Hello!'),
-        showUseProperty: jest.fn().mockReturnValue(),
-        showPage: jest.fn().mockReturnValue(),
+        constructor: mockMethod,
+        showUseProperty: mockMethod,
+        showPage: mockMethod,
         showPoiProperty:
             {
-                showModal: jest.fn().mockReturnValue(),
-                setShowPoiProperty: jest.fn().mockReturnValue()
+                showModal: mockMethod,
+                setShowPoiProperty: mockMethod
             }
     })),
 }));
@@ -146,13 +163,12 @@ describe("unittest for SVGMap Core Module", ()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
 
-        it("test",()=>{
+        it("setRootViewBox",()=>{
             svgmap.setRootViewBox({x:10,y:100,width:800,height:300});
         });
     });
@@ -168,37 +184,57 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
 
         it("transform", ()=>{
-            svgmap.transform();
+            result = svgmap.transform();
+            expect(result).toBeInstanceOf(Object);
+            expect(mockMethod).toHaveBeenCalledWith();
         });
     });
 
     describe("refer to zoompanmanager classes.",()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-        let svgmap, result, element;
+        let svgmap, result, element, mock;
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
         });
         // 以下の公開関数はコール先のzoompanmanagerにて確認すること
         it("setSmoothZoomInterval", ()=>{
-            svgmap.setSmoothZoomInterval();
+            result = svgmap.setSmoothZoomInterval();
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
         it("setSmoothZoomTransitionTime", ()=>{
-            svgmap.setSmoothZoomTransitionTime();
+            result = svgmap.setSmoothZoomTransitionTime();
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
+        // move to EssentialUIs
         it("setUpdateCenterPos", ()=>{
-            svgmap.setUpdateCenterPos();
+            result = svgmap.setUpdateCenterPos();
+            expect(result).toBeUndefined();
+            //expect(mockMethod).toHaveBeenCalledWith();
         });
         it("setZoomRatio", ()=>{
-            svgmap.setZoomRatio(0);
+            expect(mockMethod).toHaveBeenCalledTimes(0);
+
+            result = svgmap.setZoomRatio(0.1);
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith(0.1);
         });
         it("zoomDown", ()=>{
-            svgmap.zoomdown();
+            result = svgmap.zoomdown();
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
         it("zoomUp", ()=>{
-            svgmap.zoomup();
+            result = svgmap.zoomup();
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
     });
 });
