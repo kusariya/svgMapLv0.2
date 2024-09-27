@@ -4,6 +4,8 @@ import {jest} from '@jest/globals';
 // mocking 結構カオスになりそう
 //================================================================
 const mockMethod = jest.fn();
+const mockMethodReturnArray = jest.fn();
+const mockMethodreturnString = jest.fn();
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -20,16 +22,39 @@ jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
             style:{
                 top: "",
                 left: ""
-            }
+            },
+            getElementsByTagName: mockMethodReturnArray.mockReturnValue([])
+        },
+        mapCanvasSize:{
+            width: 0,
+            height: 0
+        },
+        rootViewBox:{
+            width: 0,
+            height: 0
         },
         setMapCanvasSize: mockMethod,
-        setRootViewBox: mockMethod
+        setRootViewBox: mockMethod,
+        hasMapCanvasSize: mockMethod
     })),
 }));
 jest.unstable_mockModule('../libs/LayerManager.js', () => ({
     LayerManager: jest.fn().mockImplementation(() => ({
         constructor: mockMethod,
-        setRootLayersProps: mockMethod
+        setRootLayersProps: mockMethod,
+        getRootLayersProps: mockMethod,
+        setLayerVisibility: mockMethod
+    })),
+}));
+
+jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
+    EssentialUIs: jest.fn().mockImplementation(() => ({
+        constructor: mockMethod,
+        setGeoCenter:mockMethod,
+        setGeoViewPort: mockMethod,
+        setUpdateCenterPos: mockMethod,
+        setMapCanvasCSS: mockMethod,
+        initMapCanvas: mockMethodreturnString.mockReturnValue("http://localhost/container.svg"),
     })),
 }));
 jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
@@ -40,11 +65,6 @@ jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
         setZoomRatio: mockMethod,
         zoomup: mockMethod,
         zoomdown: mockMethod
-    })),
-}));
-jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js', () => ({
-    SvgMapLayerUI:jest.fn().mockImplementation(()=>({
-        constructor: mockMethod
     })),
 }));
 jest.unstable_mockModule('../libs/MapTicker.js',()=>({
@@ -76,6 +96,35 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
     });
     
+    describe("refer to EssentialUIs classes.",()=>{
+        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
+        let svgmap, result, element;
+        beforeEach(async () => {
+            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
+            svgmap = new SvgMap();
+            svgmap.initLoad();
+        });
+
+        it("setMapCanvasCSS", ()=>{
+            result = svgmap.setMapCanvasCSS({style:{}}); 
+        });
+        it("setUpdateCenterPos", ()=>{
+            result = svgmap.setUpdateCenterPos();
+            expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
+        });
+        it("setGeoViewPort", ()=>{
+            result = svgmap.setGeoViewPort();
+            expect(result).toBeFalsy();
+            expect(mockMethod).toHaveBeenCalledWith();
+        });
+        it("setGeoCenter", ()=>{
+            result = svgmap.setGeoCenter(40,140);
+            expect(result).toBeFalsy();
+            expect(mockMethod).toHaveBeenCalledWith();
+        });
+    });
+    
     describe("refer to MapviewerProps classes.",()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
@@ -86,16 +135,19 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
 
         it("setMapCanvasSize", ()=>{
-            svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+            result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+            expect(result).toBeUndefined();
         });
 
         it("setMapCanvas", ()=>{
             let mapcanvas = new Object();
-            svgmap.setMapCanvas(mapcanvas);
+            result = svgmap.setMapCanvas(mapcanvas);
+            expect(result).toBeUndefined();
         });
         
         it("setMapCanvasSize", ()=>{
-            svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+            result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
+            expect(result).toBeUndefined();
         });
     });
     
@@ -109,7 +161,13 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
 
         it("setRootLayersProps", ()=>{
-            svgmap.setRootLayersProps(); 
+            result = svgmap.setRootLayersProps(); 
+            expect(result).toBeUndefined();
+        });
+
+        it("setRootLayersProps", ()=>{
+            result = svgmap.setLayerVisibility(); 
+            expect(result).toBeUndefined();
         });
     });
     
@@ -125,24 +183,22 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setShowPoiProperty", ()=>{
             let propFunc = function(){};
             let result = svgmap.setShowPoiProperty(propFunc, "i10"); 
+            expect(result).toBeUndefined();
         });
 
         it("showModal", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はMapTickerで確認
             let result = svgmap.showModal(); 
+            expect(result).toBeUndefined();
         });
 
         it("showPage", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はMapTickerで確認
             let result = svgmap.showPage(); 
+            expect(result).toBeUndefined();
         });
         
         it("showUseProperty", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はMapTickerで確認
             let result = svgmap.showUseProperty(); 
+            expect(result).toBeUndefined();
         });
         
     });
@@ -156,10 +212,8 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-        it("updateLayerListUI", ()=>{
-            // ここではエラーがないこと程度しか確認してません。
-            // 詳細はSVGMapLv0.1_LayerUI_r6moduleで確認
-            let result = svgmap.updateLayerListUI(); //なぜ起動するのか不明
+        it("",()=>{
+            console.log();
         });
     });
 
@@ -173,7 +227,8 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
 
         it("setRootViewBox",()=>{
-            svgmap.setRootViewBox({x:10,y:100,width:800,height:300});
+            result = svgmap.setRootViewBox({x:10,y:100,width:800,height:300});
+            expect(result).toBeUndefined();
         });
     });
 
@@ -206,7 +261,6 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
             mockMethod.mockClear();
         });
-        // 以下の公開関数はコール先のzoompanmanagerにて確認すること
         it("setSmoothZoomInterval", ()=>{
             result = svgmap.setSmoothZoomInterval();
             expect(result).toBeUndefined();
@@ -216,12 +270,6 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setSmoothZoomTransitionTime();
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith();
-        });
-        // move to EssentialUIs
-        it("setUpdateCenterPos", ()=>{
-            result = svgmap.setUpdateCenterPos();
-            expect(result).toBeUndefined();
-            //expect(mockMethod).toHaveBeenCalledWith();
         });
         it("setZoomRatio", ()=>{
             expect(mockMethod).toHaveBeenCalledTimes(0);

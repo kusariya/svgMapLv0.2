@@ -36,12 +36,16 @@ class EssentialUIs{
 	#vScale; // 中心緯度経度表示用font要素
 	#spButtonSize = 50;
 	
+	/**
+	 * 
+	 * @returns {String|null} Container.svgのPathが返る
+	 */
 	initMapCanvas(){
 //		this.#mapViewerProps.mapCanvas=document.getElementById("mapcanvas");
 		var mapCanvas=document.getElementById("mapcanvas");
 		if ( !mapCanvas ){
 			console.warn("NO id:mapcanvas div exit..");
-			return null;
+			return null;	// 本来はExcetionを吐くのが正解では？
 		}
 		
 		// 2023/05/24 zoom-out UI を改善するため、全画面mapcanvasのラッパーを仕掛ける
