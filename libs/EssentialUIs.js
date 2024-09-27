@@ -411,8 +411,14 @@ class EssentialUIs{
 			y : (rootXY.y - this.#mapViewerProps.rootViewBox.y) * this.#mapViewerProps.mapCanvasSize.height / this.#mapViewerProps.rootViewBox.height
 		}
 	}
-	// 中心地理座標を指定して地図を移動 (radiusは緯度方向の度1≒110Km) 2012/12/7
-	// lat,lng:必須 radius:[lat-side-deg]オプション(今の縮尺のまま移動) ( setGeoViewPort(lat,lng,h,w) という関数もあります )
+	/**
+	 * 中心地理座標を指定して地図を移動 (radiusは緯度方向の度1≒110Km) 2012/12/7 
+	 * @function
+	 * @param {Number} lat 必須
+	 * @param {Number} lng 必須
+	 * @param {Number} radius [lat-side-deg]オプション(今の縮尺のまま移動) ( setGeoViewPort(lat,lng,h,w) という関数もあります )
+	 * @returns {undefined}
+	 */
 	setGeoCenter( lat , lng , radius){
 		console.log("setGeoCenter:",lat,lng,radius);
 		if (!lat || !lng){
