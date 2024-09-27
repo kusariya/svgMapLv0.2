@@ -4,6 +4,7 @@ import {jest} from '@jest/globals';
 // mocking 結構カオスになりそう
 //================================================================
 const mockMethod = jest.fn();
+const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
 
@@ -35,7 +36,7 @@ jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
         },
         setMapCanvasSize: mockMethod,
         setRootViewBox: mockMethod,
-        hasMapCanvasSize: mockMethod
+        hasMapCanvasSize: mockMethodReturnTrue,
     })),
 }));
 jest.unstable_mockModule('../libs/LayerManager.js', () => ({
@@ -54,6 +55,9 @@ jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
         setGeoViewPort: mockMethod,
         setUpdateCenterPos: mockMethod,
         setMapCanvasCSS: mockMethod,
+        setPointerEvents: jest.fn(),
+        setCenterUI:jest.fn(),
+        initNavigationUIs: jest.fn(),
         initMapCanvas: mockMethodreturnString.mockReturnValue("http://localhost/container.svg"),
     })),
 }));
