@@ -8,6 +8,17 @@ const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
 
+const xhrMock = {
+    open: jest.fn(),
+    send: jest.fn(),
+    setRequestHeader: jest.fn(),
+    readyState: 4,
+    status: 200,
+    response: "<svg><animation></animation></svg>"
+  };
+
+jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
+
 //================================================================
 // mocking 結構カオスになりそう
 //================================================================
