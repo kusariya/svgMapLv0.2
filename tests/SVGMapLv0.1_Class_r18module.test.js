@@ -150,9 +150,8 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 describe("unittest for SVGMap Core Module", ()=>{
     let svgDoc="";
     beforeEach(async ()=>{
-
+        // XHRで取得するデータを設定
         svgDoc = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
-    
         const xhrMock = {
             open: jest.fn(),
             send: jest.fn().mockImplementation(()=>{xhrMock.onreadystatechange();}),
@@ -162,12 +161,7 @@ describe("unittest for SVGMap Core Module", ()=>{
             status: 200,
             responseText: svgDoc
         };
-        
         jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
-    
-    });
-    afterEach(()=>{
-        mockMethod.mockClear();
     });
     describe("refer to own classes.",()=>{
         let svgmap, result, element;
