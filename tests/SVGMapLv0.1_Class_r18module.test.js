@@ -1,7 +1,7 @@
 import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
-import { PathHitTester } from '../libs/PathHitTester';
 import { networkInterfaces } from 'node:os';
+
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -11,10 +11,10 @@ const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
 
-const documentObj = window.document;
+const original_document = window.document;
 
 const documentObject = {
-    ...documentObj,
+    ...original_document,
     parentNode:{
         insertBefore: jest.fn(),
         getElementById: jest.fn().mockReturnThis(),
@@ -166,15 +166,20 @@ describe("unittest for SVGMap Core Module", ()=>{
         jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
     
     });
-
+    afterEach(()=>{
+        mockMethod.mockClear();
+    });
     describe("refer to own classes.",()=>{
         let svgmap, result, element;
         beforeEach(async () => {
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("setSummarizeCanvas",()=>{
             // 基本True（コード内にFalseは”だいぶ昔に消滅”と記述あり）
             svgmap.setSummarizeCanvas(true);
@@ -188,8 +193,11 @@ describe("unittest for SVGMap Core Module", ()=>{
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("setMapCanvasCSS", ()=>{
             result = svgmap.setMapCanvasCSS({style:{}}); 
         });
@@ -218,7 +226,9 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("setMapCanvasSize", ()=>{
             result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
             expect(result).toBeUndefined();
@@ -233,6 +243,7 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setMapCanvasSize", ()=>{
             result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith({x:2,y:20,width:100,height:200});
         });
     });
     
@@ -244,15 +255,19 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("setRootLayersProps", ()=>{
             result = svgmap.setRootLayersProps(); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
 
         it("setRootLayersProps", ()=>{
             result = svgmap.setLayerVisibility(); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
     });
     
@@ -264,11 +279,14 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("setShowPoiProperty", ()=>{
             let propFunc = function(){};
             let result = svgmap.setShowPoiProperty(propFunc, "i10"); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith(propFunc, "i10");
         });
 
         it("showModal", ()=>{
@@ -279,11 +297,13 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("showPage", ()=>{
             let result = svgmap.showPage(); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
         
         it("showUseProperty", ()=>{
             let result = svgmap.showUseProperty(); 
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
         
     });
@@ -292,10 +312,13 @@ describe("unittest for SVGMap Core Module", ()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
+        });
+        afterEach(()=>{
+            mockMethod.mockClear();
         });
         it("",()=>{
             console.log();
@@ -309,11 +332,13 @@ describe("unittest for SVGMap Core Module", ()=>{
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
         });
 
         it("setRootViewBox",()=>{
             result = svgmap.setRootViewBox({x:10,y:100,width:800,height:300});
             expect(result).toBeUndefined();
+            expect(mockMethod).toHaveBeenCalledWith();
         });
     });
 
@@ -321,12 +346,13 @@ describe("unittest for SVGMap Core Module", ()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
-            
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
         });
-
+        afterEach(()=>{
+            mockMethod.mockClear();
+        });
         it("transform", ()=>{
             result = svgmap.transform();
             expect(result).toBeInstanceOf(Object);
@@ -357,8 +383,6 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(mockMethod).toHaveBeenCalledWith();
         });
         it("setZoomRatio", ()=>{
-            expect(mockMethod).toHaveBeenCalledTimes(0);
-
             result = svgmap.setZoomRatio(0.1);
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith(0.1);
