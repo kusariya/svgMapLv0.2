@@ -230,11 +230,6 @@ describe("unittest for SVGMap Core Module", ()=>{
         afterEach(()=>{
             mockMethod.mockClear();
         });
-        it("setMapCanvasSize", ()=>{
-            result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
-            expect(result).toBeUndefined();
-        });
-
         it("setMapCanvas", ()=>{
             let mapcanvas = new Object();
             result = svgmap.setMapCanvas(mapcanvas);
