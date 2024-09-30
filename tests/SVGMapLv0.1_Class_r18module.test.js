@@ -1,6 +1,7 @@
 import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
 import { PathHitTester } from '../libs/PathHitTester';
+import { networkInterfaces } from 'node:os';
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -64,6 +65,7 @@ jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
             width: 0,
             height: 0
         },
+        root2Geo: "",
         setMapCanvasSize: mockMethod,
         setRootViewBox: mockMethod,
         hasMapCanvasSize: mockMethodReturnTrue,
@@ -87,6 +89,12 @@ jest.unstable_mockModule('../libs/ResourceLoadingObserver.js',()=>({
         }
     }))
 }));
+
+jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js',()=>({
+    SvgMapLayerUI:jest.fn().mockImplementation(() => ({
+        constructor:mockMethod,
+    }))
+}));
 jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
     EssentialUIs: jest.fn().mockImplementation(() => ({
         constructor: mockMethod,
@@ -94,7 +102,10 @@ jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
         setGeoViewPort: mockMethod,
         setUpdateCenterPos: mockMethod,
         setMapCanvasCSS: mockMethod,
+        setGeoViewBox: jest.fn(),
         setPointerEvents: jest.fn(),
+        setUpdateCenterPos:jest.fn(),
+        updateCenterPos:jest.fn(),
         setCenterUI:jest.fn(),
         initNavigationUIs: jest.fn(),
         initMapCanvas: mockMethodreturnString.mockReturnValue("http://localhost/container.svg"),
@@ -115,11 +126,18 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
         constructor: mockMethod,
         showUseProperty: mockMethod,
         showPage: mockMethod,
-        
+        hideTicker:jest.fn(),
+        isEnabled: jest.fn().mockReturnValue(true),
+        checkTicker: jest.fn(),
         pathHitTester:{
-            setCentralVectorObjectsGetter: jest.fn()
+            setCentralVectorObjectsGetter: jest.fn(),
+            clear: jest.fn()
         },
-        
+        poiHitTester:{
+            setCentralVectorObjectsGetter: jest.fn(),
+            setPoiBBox: jest.fn(),
+            clear: jest.fn()
+        },
         showPoiProperty:
             {
                 showModal: mockMethod,
