@@ -220,6 +220,7 @@ describe("unittest for SVGMap Core Module", ()=>{
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
             svgmap.initLoad();
+            mockMethod.mockClear();
         });
         afterEach(()=>{
             mockMethod.mockClear();
@@ -233,7 +234,7 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setMapCanvasSize", ()=>{
             result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
             expect(result).toBeUndefined();
-            expect(mockMethod).toHaveBeenCalledWith({x:2,y:20,width:100,height:200});
+            expect(mockMethod).toHaveBeenCalledWith({x:10,y:20,width:100,height:200});
         });
     });
     
