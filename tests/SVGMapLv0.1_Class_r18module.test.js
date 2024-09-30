@@ -1,4 +1,6 @@
 import {jest} from '@jest/globals';
+import * as fs from "node:fs/promises";
+import { PathHitTester } from '../libs/PathHitTester';
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -8,16 +10,11 @@ const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
 
-const xhrMock = {
-    open: jest.fn(),
-    send: jest.fn(),
-    setRequestHeader: jest.fn(),
-    readyState: 4,
-    status: 200,
-    response: "<svg><animation></animation></svg>"
-  };
-
-jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
+jest.spyOn(document, 'getElementById').mockReturnValue(documentObject);
+jest.spyOn(document, 'getElementsByTagName').mockReturnValue(documentObject);
+jest.spyOn(document, 'createElement').mockReturnValue(documentObject);
+jest.spyOn(document.body,"appendChild").mockReturnValue();
+jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -30,13 +27,7 @@ jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
         uaProps:{
             verIE: 6
         },
-        mapCanvas:{
-            style:{
-                top: "",
-                left: ""
-            },
-            getElementsByTagName: mockMethodReturnArray.mockReturnValue([])
-        },
+        mapCanvas: documentObject,
         mapCanvasSize:{
             width: 0,
             height: 0
@@ -58,7 +49,16 @@ jest.unstable_mockModule('../libs/LayerManager.js', () => ({
         setLayerVisibility: mockMethod
     })),
 }));
-
+jest.unstable_mockModule('../libs/ResourceLoadingObserver.js',()=>({
+    ResourceLoadingObserver:jest.fn().mockImplementation(() => ({
+        constructor:mockMethod,
+        checkLoadCompleted: jest.fn(),
+        init: jest.fn(),
+        loadingImgs:{
+            root: false
+        }
+    }))
+}));
 jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
     EssentialUIs: jest.fn().mockImplementation(() => ({
         constructor: mockMethod,
@@ -87,6 +87,11 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
         constructor: mockMethod,
         showUseProperty: mockMethod,
         showPage: mockMethod,
+        
+        pathHitTester:{
+            setCentralVectorObjectsGetter: jest.fn()
+        },
+        
         showPoiProperty:
             {
                 showModal: mockMethod,
@@ -97,6 +102,25 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
+    let svgDoc="";
+    beforeEach(async ()=>{
+
+        svgDoc = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
+    
+        const xhrMock = {
+            open: jest.fn(),
+            send: jest.fn().mockImplementation(()=>{xhrMock.onreadystatechange();}),
+            onreadystatechange: jest.fn(),
+            setRequestHeader: jest.fn(),
+            readyState: 4,
+            status: 200,
+            responseText: svgDoc
+        };
+        
+        jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
+    
+    });
+
     describe("refer to own classes.",()=>{
         let svgmap, result, element;
         beforeEach(async () => {
