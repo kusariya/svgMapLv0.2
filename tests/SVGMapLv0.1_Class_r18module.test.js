@@ -10,6 +10,34 @@ const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
 
+const documentObj = window.document;
+
+const documentObject = {
+    ...documentObj,
+    parentNode:{
+        insertBefore: jest.fn(),
+        getElementById: jest.fn().mockReturnThis(),
+        getElementsByTagName: jest.fn().mockReturnValue([this]),
+        appendChild: jest.fn(),
+        removeChild: jest.fn()
+    },
+    dataset:{
+        src: ""
+    },
+    getAttribute: jest.fn(),
+    style:{},
+    attributes:[],
+    addEventListener: jest.fn(),
+    setAttribute:jest.fn(),
+    appendChild: jest.fn(),
+    childNodes: jest.fn(),
+    insertBefore: jest.fn(),
+    getElementById: jest.fn().mockReturnThis(),
+    getElementsByTagName: jest.fn().mockReturnValue([]),
+    appendChild: jest.fn(),
+    removeChild: jest.fn()
+}
+
 jest.spyOn(document, 'getElementById').mockReturnValue(documentObject);
 jest.spyOn(document, 'getElementsByTagName').mockReturnValue(documentObject);
 jest.spyOn(document, 'createElement').mockReturnValue(documentObject);
