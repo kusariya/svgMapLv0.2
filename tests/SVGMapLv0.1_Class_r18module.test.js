@@ -1,7 +1,5 @@
 import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
-import { networkInterfaces } from 'node:os';
-
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -177,6 +175,11 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setSummarizeCanvas",()=>{
             // 基本True（コード内にFalseは”だいぶ昔に消滅”と記述あり）
             svgmap.setSummarizeCanvas(true);
+        });
+
+        it("test of updateLayerListUI.",()=>{
+            //registLayerUiSetterを用いて外部から関数を設定されたときに確認べき内容？
+            svgmap.updateLayerListUI();
         });
     });
     
