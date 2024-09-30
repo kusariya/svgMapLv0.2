@@ -8,6 +8,8 @@ const mockMethod = jest.fn();
 const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
 const mockMethodReturnArray = jest.fn();
 const mockMethodreturnString = jest.fn();
+const mockGeoViewBox = jest.fn().mockReturnValue({x:0, y:0});
+const mockRootLayersProps = jest.fn().mockReturnValue([]);
 
 const original_document = window.document;
 
@@ -44,7 +46,7 @@ jest.spyOn(document.body,"appendChild").mockReturnValue();
 jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
 
 //================================================================
-// mocking 結構カオスになりそう
+// mocking 結構カオスになった
 //================================================================
 
 jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
@@ -73,7 +75,7 @@ jest.unstable_mockModule('../libs/LayerManager.js', () => ({
     LayerManager: jest.fn().mockImplementation(() => ({
         constructor: mockMethod,
         setRootLayersProps: mockMethod,
-        getRootLayersProps: mockMethod,
+        getRootLayersProps: mockRootLayersProps,
         setLayerVisibility: mockMethod
     })),
 }));
@@ -87,7 +89,6 @@ jest.unstable_mockModule('../libs/ResourceLoadingObserver.js',()=>({
         }
     }))
 }));
-
 jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js',()=>({
     SvgMapLayerUI:jest.fn().mockImplementation(() => ({
         constructor:mockMethod,
@@ -106,6 +107,7 @@ jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
         updateCenterPos:jest.fn(),
         setCenterUI:jest.fn(),
         initNavigationUIs: jest.fn(),
+        getGeoViewBox: mockGeoViewBox,
         initMapCanvas: mockMethodreturnString.mockReturnValue("http://localhost/container.svg"),
     })),
 }));
@@ -216,7 +218,7 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
     });
     
-    describe("refer to MapviewerProps classes.",()=>{
+    describe("refer to other classes.",()=>{
         // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
         let svgmap, result, element;
         beforeEach(async () => {
@@ -225,9 +227,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.initLoad();
             mockMethod.mockClear();
         });
+
         afterEach(()=>{
             mockMethod.mockClear();
         });
+
+        // refer to MapviewerProps
         it("setMapCanvas", ()=>{
             let mapcanvas = new Object();
             result = svgmap.setMapCanvas(mapcanvas);
@@ -239,19 +244,9 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith({x:10,y:20,width:100,height:200});
         });
-    });
-    
-    describe("refer to LayerManager classes.",()=>{
-        // 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-        let svgmap, result, element;
-        beforeEach(async () => {
-            const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
-            svgmap = new SvgMap();
-            svgmap.initLoad();
-        });
-        afterEach(()=>{
-            mockMethod.mockClear();
-        });
+
+        // refer to LayerManager
+
         it("setRootLayersProps", ()=>{
             result = svgmap.setRootLayersProps(); 
             expect(result).toBeUndefined();
@@ -263,6 +258,11 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith();
         });
+        
+        it("setResume", ()=>{
+            svgmap.setResume(true);
+        });
+        
     });
     
     describe("refer to MapTicker classes.",()=>{
