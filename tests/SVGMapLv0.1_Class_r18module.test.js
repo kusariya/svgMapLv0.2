@@ -124,6 +124,7 @@ jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
 jest.unstable_mockModule('../libs/MapTicker.js',()=>({
     MapTicker: jest.fn().mockImplementation(()=>({ 
         constructor: mockMethod,
+        initModal: jest.fn().mockReturnValue(documentObject),
         showUseProperty: mockMethod,
         showPage: mockMethod,
         hideTicker:jest.fn(),
@@ -197,6 +198,11 @@ describe("unittest for SVGMap Core Module", ()=>{
             // TODO: 引数によって戻り値が異なるため要注意
             result = svgmap.getDevicePixelRatio("root");
             expect(result).toStrictEqual(1.0);
+        });
+
+        it("setDevicePixelRatio", ()=>{
+            result = svgmap.setDevicePixelRatio();
+            expect(result).toBeFalsy(); // エラーがないことだけ確認
         });
     });
     
@@ -285,6 +291,14 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setProxyURLFactory(func, func);
         });
 
+        // refer to CustomModal
+
+        it("setCustomModal", ()=>{
+            // Look&feelの部分が多いため、試験する優先度は低め
+            // TODO: 本当はClickの挙動とかも見たいのですが、今は無理
+            result = svgmap.setCustomModal();
+            expect(result).toBeFalsy();
+        });
 
         
     });
