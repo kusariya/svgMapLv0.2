@@ -604,6 +604,11 @@ class SvgMap {
 	
 	#existNodes = new Object();; // 存在するノードのidをハッシュキーとしたテーブル
 
+	/**
+	 * 
+	 * @param {Number} docId       
+	 * @param {Object} parentElem   多分XMLDocumentだと思っています
+	 */
 	#dynamicLoad( docId , parentElem ){ // アップデートループのルート：ほとんど機能がなくなっている感じがする・・
 		if (! docId && ! parentElem ){
 			docId ="root";
@@ -1870,9 +1875,33 @@ class SvgMap {
 	screen2Geo(...params){ return (this.#essentialUIs.screen2Geo(...params))};
 	setCustomModal(...params){ return (this.#customModal.setCustomModal(...params))};
 	setDevicePixelRatio(...params){ return (this.#setDevicePixelRatio(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	getDevicePixelRatio(...params){ return (this.#getDevicePixelRatio(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	setGeoCenter(...params){ return (this.#essentialUIs.setGeoCenter(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns {Boolean} 
+	 */
 	setGeoViewPort(...params){ return (this.#essentialUIs.setGeoViewPort(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns {undefined} //戻り値なし
+	 */
 	setLayerVisibility(...params){ return (this.#layerManager.setLayerVisibility(...params))};
 	
 	/**
@@ -1880,6 +1909,12 @@ class SvgMap {
 	 * @param {Object} mc 多分Objectだけど、MapViewerPropsの中で操作されてない
 	 */
 	setMapCanvas( mc ){ this.#mapViewerProps.mapCanvas = mc };
+
+	/**
+	 * 
+	 * @param  {Object} mc MapCanvas向けのstyle設定
+	 * @returns {undefined}　
+	 */
 	setMapCanvasCSS(...params){ return (this.#essentialUIs.setMapCanvasCSS(...params))};
 
 	/**
@@ -1908,6 +1943,11 @@ class SvgMap {
 			}
 		}
 	};
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns {undefined}
+	 */
 	setProxyURLFactory(...params){ return (this.#proxyManager.setProxyURLFactory(...params))};
 	setResume( stat ){
 		this.#resumeManager.setResume( stat );
