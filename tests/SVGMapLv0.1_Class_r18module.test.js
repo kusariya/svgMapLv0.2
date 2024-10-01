@@ -104,6 +104,7 @@ jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
         setGeoViewBox: jest.fn(),
         setPointerEvents: jest.fn(),
         setUpdateCenterPos:jest.fn(),
+        screen2Geo:jest.fn().mockReturnValue({lat:34,lng:130}),
         updateCenterPos:jest.fn(),
         setCenterUI:jest.fn(),
         initNavigationUIs: jest.fn(),
@@ -236,6 +237,10 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setGeoCenter(40,140);
             expect(result).toBeFalsy();
             expect(mockMethod).toHaveBeenCalledWith(40,140);
+        });
+        it("screen2Geo", ()=>{
+            result = svgmap.screen2Geo(100,110); //後ろでたたく関数をMock化しているため戻り値はでたらめです
+            expect(result).toStrictEqual({lat:expect.anything(),lng:expect.anything()});
         });
     });
     

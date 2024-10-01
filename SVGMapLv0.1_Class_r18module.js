@@ -1885,6 +1885,12 @@ class SvgMap {
 	};
 	reLoadLayer(...params){ return (this.#reLoadLayer(...params))};
 	resumeToggle(...params){ return (this.#resumeManager.resumeToggle(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	screen2Geo(...params){ return (this.#essentialUIs.screen2Geo(...params))};
 
 	/**
