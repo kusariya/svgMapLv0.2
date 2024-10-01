@@ -183,6 +183,21 @@ describe("unittest for SVGMap Core Module", ()=>{
             //registLayerUiSetterを用いて外部から関数を設定されたときに確認べき内容？
             svgmap.updateLayerListUI();
         });
+        it("getDevicePixelRatio (no argument)", ()=>{
+            // TODO: 引数によって戻り値が異なるため要注意
+            result = svgmap.getDevicePixelRatio();
+            expect(result).toStrictEqual(
+                {
+                    "commonDevicePixelRatio":expect.anything(),
+                    "layerDevicePixelRatio":expect.anything()
+                }
+            );
+        });
+        it("getDevicePixelRatio (with argument)", ()=>{
+            // TODO: 引数によって戻り値が異なるため要注意
+            result = svgmap.getDevicePixelRatio("root");
+            expect(result).toStrictEqual(1.0);
+        });
     });
     
     describe("refer to EssentialUIs classes.",()=>{
@@ -262,6 +277,15 @@ describe("unittest for SVGMap Core Module", ()=>{
         it("setResume", ()=>{
             svgmap.setResume(true);
         });
+
+        // refer to ProxyManager
+
+        it("setProxyURLFactory", ()=>{
+            let func = function(){};
+            result = svgmap.setProxyURLFactory(func, func);
+        });
+
+
         
     });
     
