@@ -1562,6 +1562,14 @@ class SvgMap {
 	//		return ( ( Math.abs(s2c.a) + Math.abs(s2c.d) ) / ( 2.0 * commonDevicePixelRatio ) );
 	}
 
+	/**
+	 * 
+	 * @param {Number} dpr 
+	 * @param {String} layerId
+	 * 
+	 * 
+	 * TODO: デフォルト引数としてdpr=1/layerId="root"を設定するのがベター？
+	 */
 	#setDevicePixelRatio( dpr , layerId ){
 		// 2020/5/13 layerId毎に指定するlayerDevicePixelRatio設定＆クリア機能を追加
 		if( layerId ){
@@ -1580,6 +1588,11 @@ class SvgMap {
 		}
 	}
 
+	/**
+	 * 
+	 * @param {String} docId 
+	 * @returns {Object|Number} 縦横の比率
+	 */
 	#getDevicePixelRatio(docId){
 		if ( !docId ){
 			return {
@@ -1873,13 +1886,25 @@ class SvgMap {
 	reLoadLayer(...params){ return (this.#reLoadLayer(...params))};
 	resumeToggle(...params){ return (this.#resumeManager.resumeToggle(...params))};
 	screen2Geo(...params){ return (this.#essentialUIs.screen2Geo(...params))};
-	setCustomModal(...params){ return (this.#customModal.setCustomModal(...params))};
-	setDevicePixelRatio(...params){ return (this.#setDevicePixelRatio(...params))};
 
 	/**
 	 * 
 	 * @param  {...any} params 
-	 * @returns 
+	 * @returns {undefined}
+	 */
+	setCustomModal(...params){ return (this.#customModal.setCustomModal(...params))};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns {undefined}
+	 */
+	setDevicePixelRatio(...params){ return (this.#setDevicePixelRatio(...params))};
+
+	/**
+	 * 
+	 * @param  {Null|String} params 
+	 * @returns {Object|Number} 
 	 */
 	getDevicePixelRatio(...params){ return (this.#getDevicePixelRatio(...params))};
 
