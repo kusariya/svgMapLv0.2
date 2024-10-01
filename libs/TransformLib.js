@@ -171,6 +171,14 @@ class MatrixUtil {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param {Number} svgX 
+	 * @param {Number} svgY 
+	 * @param {Object} crs 
+	 * @param {Object} inv 
+	 * @returns {Object|null} lat/lngのキーを含むhashを戻す
+	 */
 	SVG2Geo( svgX , svgY , crs , inv ){
 		var iCrs;
 		if ( inv ){

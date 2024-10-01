@@ -378,6 +378,13 @@ class EssentialUIs{
 		return geoCentral
 	}
 	
+	/**
+	 * 画面上の座標(px)を指定すると、その地理座標を返す
+	 * 
+	 * @param {Number} screenX 
+	 * @param {Number} screenY 
+	 * @returns {}
+	 */
 	screen2Geo( screenX , screenY ){ // 画面上の座標(px)を指定すると、その地理座標を返す
 		var sx , sy;
 		if ( ! screenY ){
