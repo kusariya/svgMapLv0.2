@@ -363,9 +363,9 @@ class ResumeManager{
 	 */
 	resumeToggle(evt){
 		if ( evt.target.checked ){
-			svgMap.setResume(true);
+			this.#svgMapObject.setResume(true);
 		} else {
-			svgMap.setResume(false);
+			this.#svgMapObject.setResume(false);
 		}
 		
 	}
