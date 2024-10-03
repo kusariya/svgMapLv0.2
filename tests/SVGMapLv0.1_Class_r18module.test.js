@@ -98,7 +98,9 @@ jest.unstable_mockModule('../libs/ResourceLoadingObserver.js',()=>({
         init: jest.fn(),
         loadingImgs:{
             root: false
-        }
+        },
+        getLoadCompleted: jest.fn(),
+        setLoadCompleted: jest.fn()
     }))
 }));
 jest.unstable_mockModule('../SVGMapLv0.1_LayerUI_r6module.js',()=>({
@@ -254,6 +256,13 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.screen2Geo(100,110); //後ろでたたく関数をMock化しているため戻り値はでたらめです
             expect(result).toStrictEqual({lat:expect.anything(),lng:expect.anything()});
         });
+        it("reLoadLayer",()=>{
+            svgmap.reLoadLayer();
+        });
+        it("registLayerUiSetter.", ()=>{
+            // カバレッジを増やすためだけの試験
+            svgmap.registLayerUiSetter(jest.fn(), jest.fn());
+        });
     });
     
     describe("refer to other classes.",()=>{
@@ -342,8 +351,6 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setCustomModal();
             expect(result).toBeFalsy();
         });
-
-        
     });
     
     describe("refer to MapTicker classes.",()=>{
