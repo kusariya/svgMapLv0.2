@@ -1,5 +1,17 @@
 import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
+// query utilities:
+import {
+    getByLabelText,
+    getByText,
+    getByTestId,
+    queryByTestId,
+    // Tip: all queries are also exposed on an object
+    // called "queries" which you could import here as well
+    waitFor,
+  } from '@testing-library/dom'
+  
+
 
 //================================================================
 // mocking 結構カオスになりそう
@@ -284,9 +296,35 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith();
         });
+
+        // refer to ResumeManager
+        // DOMが絡むため別ファイルにする方がスマートかも？
         
         it("setResume", ()=>{
             svgmap.setResume(true);
+        });
+
+        it("resumeToggle(toggle off->on)",async ()=>{
+            document.body.innerHTML =
+            '<div>' +
+            '  <input type="checkbox" data-testid="button" onclick="" />' +
+            '</div>';
+            let button = getByTestId(document.body,'button');
+            button.addEventListener("click",(e)=>{svgmap.resumeToggle(e)});
+            
+            result = await button.click();
+            expect(svgmap.getResume()).toBeTruthy();
+        });
+        it("resumeToggle(toggle on->off)",()=>{
+            document.body.innerHTML =
+            '<div>' +
+            '  <input type="checkbox" data-testid="button" checked=true onclick="" />' +
+            '</div>';
+            let button = getByTestId(document.body,'button');
+            button.addEventListener("click",(e)=>{svgmap.resumeToggle(e)});
+            
+            button.click();
+            expect(svgmap.getResume()).toBeFalsy();
         });
 
         // refer to ProxyManager
