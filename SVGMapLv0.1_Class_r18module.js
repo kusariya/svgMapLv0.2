@@ -1685,6 +1685,13 @@ class SvgMap {
 
 
 	#retryingRefreshScreen = false;
+	/**
+	 * @param {Boolean} noRetry
+	 * @param {} parentCaller 未使用？
+	 * @param {Boolean} isRetryCall
+	 * @param {Boolean} withinContext
+	 * @returns {}
+	 */
 	#refreshScreen=function(noRetry, parentCaller, isRetryCall, withinContext) {
 		// MutationObserverとの不整合を回避するため、refreshScreenはマイクロタスクに積む
 		// https://zenn.dev/canalun/articles/js_async_and_company_summary
@@ -1698,6 +1705,13 @@ class SvgMap {
 		}
 	}.bind(this);
 	
+	/**
+	 * スクロール・パンを伴わずに画面の表示を更新(内部のSVGMapDOMとシンクロ)する処理
+	 * @param {Boolean} noRetry
+	 * @param {} parentCaller 未使用？
+	 * @param {Boolean} isRetryCall リトライ用のフラグっぽい
+	 * @returns {undefined} 
+	 */
 	#refreshScreenSync=function(noRetry, parentCaller, isRetryCall){
 		// スクロール・パンを伴わずに画面の表示を更新(内部のSVGMapDOMとシンクロ)する処理
 		// SVGMapコンテンツ全体のDOMトラバースが起きるため基本的に重い処理
@@ -1743,7 +1757,10 @@ class SvgMap {
 	#setLayerUI;
 	#updateLayerListUIint;
 
-
+	/**
+	 * 
+	 * @param {String} layerID_Numb_Title 
+	 */
 	#reLoadLayer(layerID_Numb_Title){
 		// 指定したレイヤー(ルートコンテナのレイヤー)をリロードする 2017.10.3
 		// この関数は必ずリロードが起こることは保証できない。
@@ -1870,7 +1887,22 @@ class SvgMap {
 	},
 	**/
 	parseEscapedCsvLine(...params){ return (this.#mapTicker.showPoiProperty.parseEscapedCsvLine(...params)) };
+
+	/**
+	 * @param {Boolean} noRetry
+	 * @param {} parentCaller 未使用？
+	 * @param {Boolean} isRetryCall
+	 * @param {Boolean} withinContext
+	 * @returns {undefined}
+	 */
 	refreshScreen(...params){ return (this.#refreshScreen(...params))};
+
+	/**
+	 * 
+	 * @param {Function} layerUIinitFunc 
+	 * @param {Function} layerUIupdateFunc 
+	 * 
+	 */
 	registLayerUiSetter( layerUIinitFunc, layerUIupdateFunc ){
 		console.log("registLayerUiSetter:",layerUIinitFunc, layerUIupdateFunc);
 		this.#setLayerUI = layerUIinitFunc;
@@ -1883,6 +1915,12 @@ class SvgMap {
 		}.bind(this);
 		**/
 	};
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	reLoadLayer(...params){ return (this.#reLoadLayer(...params))};
 
 	/**
@@ -1895,7 +1933,7 @@ class SvgMap {
 	/**
 	 * 
 	 * @param  {...any} params 
-	 * @returns 
+	 * @returns {Object|null} lat/lngのキーを含むhashを戻す
 	 */
 	screen2Geo(...params){ return (this.#essentialUIs.screen2Geo(...params))};
 

@@ -383,7 +383,7 @@ class EssentialUIs{
 	 * 
 	 * @param {Number} screenX 
 	 * @param {Number} screenY 
-	 * @returns {}
+	 * @returns {Object|null} lat/lngのキーを含むhashを戻す
 	 */
 	screen2Geo( screenX , screenY ){ // 画面上の座標(px)を指定すると、その地理座標を返す
 		var sx , sy;
