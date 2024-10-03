@@ -1884,6 +1884,12 @@ class SvgMap {
 		**/
 	};
 	reLoadLayer(...params){ return (this.#reLoadLayer(...params))};
+
+	/**
+	 * 
+	 * @param  {Object} params DOM Event 
+	 * @returns {undefined}
+	 */
 	resumeToggle(...params){ return (this.#resumeManager.resumeToggle(...params))};
 
 	/**
