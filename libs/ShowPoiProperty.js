@@ -343,6 +343,14 @@ class ShowPoiProperty{
 		return(infoDiv);
 	}
 	
+	/**
+	 * @function' や " でエスケープされたcsvの1ラインをパースして配列に格納する関数
+	 * 
+	 * @param {String} csv 
+	 * @returns {Array}
+	 * 
+	 * @description TODO: utilに移設するほうがよいのでは？
+	 */
 	parseEscapedCsvLine( csv ){
 		// ' や " でエスケープされたcsvの1ラインをパースして配列に格納する。(高級split(","))
 		var metaData = csv.split(",");

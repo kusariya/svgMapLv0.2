@@ -12,6 +12,13 @@ class UtilFuncs {
 		return s.replace(/[\s\r\t\n]+/gm, " ");
 	}
 
+	/**
+	 * 小数点以下の桁数をそろえる
+	 * 
+	 * @param {Number} number 
+	 * @param {Number} digits デフォルト7桁
+	 * @returns {Number}
+	 */
 	static numberFormat(number, digits) {
 		if (!digits) {
 			digits = 7;

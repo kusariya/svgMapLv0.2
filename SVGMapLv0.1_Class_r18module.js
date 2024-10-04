@@ -1878,6 +1878,15 @@ class SvgMap {
 	linkedDocOp(...params){ return (this.#linkedDocOp.linkedDocOp(...params)) };
 	loadSVG(...params){ return (this.#loadSVG(...params)) };
 	matMul(...params){ return (this.#matUtil.matMul(...params)) };
+
+	
+	/**
+	 * @function 小数点以下の桁数をそろえる
+	 * 
+	 * @param {Number} number 
+	 * @param {Number} digits デフォルト7桁
+	 * @returns {Number}
+	 */
 	numberFormat(...params){ return (UtilFuncs.numberFormat(...params)) };
 	/**
 	override : function ( mname , mval ){
@@ -1886,6 +1895,12 @@ class SvgMap {
 //		console.log("override " + mname + " : " , this[mname] , showPoiProperty , this.showPoiProperty , this);
 	},
 	**/
+
+	/**
+	 * 
+	 * @param  {String} csv 
+	 * @returns {Array}
+	 */
 	parseEscapedCsvLine(...params){ return (this.#mapTicker.showPoiProperty.parseEscapedCsvLine(...params)) };
 
 	/**
