@@ -447,6 +447,13 @@ class SvgMap {
 
 	// loadSVG(this)[XHR] -(非同期)-> handleResult[buildDOM] -> dynamicLoad[updateMap] -> parseSVG[parseXML & set/chgImage2Canvas] -> (if Necessary) ( (if Unloaded child) loadSVG(child)-(非同期)->... || (if already loaded child) parseSVG(child)... )
 	// なお、起動時はloadSVGからだが、伸縮,スクロール,レイヤON/OFFなどでの読み込み表示処理の起点はdynamicLoadから(rootの文書は起動時に読み込み済みで変わらないため)
+	/**
+	 * 
+	 * @param {String} path 
+	 * @param {String} id 
+	 * @param {Document} parentElem 
+	 * @param {*} parentSvgDocId -- 不明
+	 */
 	#loadSVG( path , id , parentElem , parentSvgDocId) {
 	//	console.log("called loadSVG  id:",id, " path:",path);
 		if ( !this.#svgImages[id] ){ 
@@ -1876,6 +1883,12 @@ class SvgMap {
 	initLoad(...params){ return (this.#initLoad(...params)) };
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
 	linkedDocOp(...params){ return (this.#linkedDocOp.linkedDocOp(...params)) };
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	loadSVG(...params){ return (this.#loadSVG(...params)) };
 
 	
