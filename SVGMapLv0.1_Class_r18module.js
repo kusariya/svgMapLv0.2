@@ -1882,6 +1882,18 @@ class SvgMap {
 	ignoreMapAspect(){ this.#essentialUIs.ignoreMapAspect = true; };
 	initLoad(...params){ return (this.#initLoad(...params)) };
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
+	
+	/**
+	 * @function 子文書に対して、同じ処理(func)を再帰実行する関数 
+	 * 
+	 * @param {Function} func 
+	 * @param {String} docHash svgDocId?
+	 * @param {Object} param1 
+	 * @param {Object} param2 
+	 * @param {Object} param3 
+	 * @param {Object} param4 
+	 * @param {Object} param5 
+	 */
 	linkedDocOp(...params){ return (this.#linkedDocOp.linkedDocOp(...params)) };
 
 	/**
