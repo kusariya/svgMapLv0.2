@@ -83,6 +83,13 @@ class MatrixUtil {
 		}
 	}
 	
+	/**
+	 * @function 2つの行列の積を計算する関数
+	 * 
+	 * @param {GenericMatrix} m1 
+	 * @param {GenericMatrix} m2 
+	 * @returns {Object} // GenericMatrixで返すの方がよいのでは？
+	 */
 	matMul( m1 , m2 ){ // getConversionMatrixViaGCSとほとんど同じでは？
 		// m1: 最初の変換マトリクス
 		// m2: 二番目の変換マトリクス

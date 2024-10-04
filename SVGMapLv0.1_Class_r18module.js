@@ -1877,8 +1877,16 @@ class SvgMap {
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
 	linkedDocOp(...params){ return (this.#linkedDocOp.linkedDocOp(...params)) };
 	loadSVG(...params){ return (this.#loadSVG(...params)) };
-	matMul(...params){ return (this.#matUtil.matMul(...params)) };
 
+	
+	/**
+	 * @function 2つの行列の積を計算する関数
+	 * 
+	 * @param {GenericMatrix} m1 
+	 * @param {GenericMatrix} m2 
+	 * @returns {Object} // GenericMatrixで返すの方がよいのでは？
+	 */
+	matMul(...params){ return (this.#matUtil.matMul(...params)) };
 	
 	/**
 	 * @function 小数点以下の桁数をそろえる
