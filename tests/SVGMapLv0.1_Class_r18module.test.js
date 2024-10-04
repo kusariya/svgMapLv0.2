@@ -1,5 +1,7 @@
 import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
+import {GenericMatrix} from "../libs/TransformLib";
+
 // query utilities:
 import {
     getByLabelText,
@@ -464,6 +466,13 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.transform();
             expect(result).toBeInstanceOf(Object);
             expect(mockMethod).toHaveBeenCalledWith();
+        });
+
+        it("matMul", ()=>{
+            let m1 = new GenericMatrix();
+            let m2 = new GenericMatrix();
+            result = svgmap.matMul(m1, m2);
+            expect(result).toBeInstanceOf(Object);
         });
     });
 
