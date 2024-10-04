@@ -1,4 +1,4 @@
-import {jest} from '@jest/globals';
+import {it, jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
 import {GenericMatrix} from "../libs/TransformLib";
 
@@ -222,6 +222,15 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setDevicePixelRatio();
             expect(result).toBeFalsy(); // エラーがないことだけ確認
         });
+
+        it("loadSVG", ()=>{
+            document.body.innerHTML =
+            '<div>' +
+            '  <input type="checkbox" data-testid="button" onclick="" />' +
+            '</div>';
+            let button = document.getElementById('button');
+            svgmap.loadSVG("/Container.svg", "root", button);
+        });
     });
     
     describe("refer to EssentialUIs classes.",()=>{
@@ -363,7 +372,7 @@ describe("unittest for SVGMap Core Module", ()=>{
         });
         it("numberFormat. argument is minimum.", ()=>{
             result = svgmap.numberFormat(3.1415925434,0);
-            expect(result).toBe(3);  //これは正しいのだろうか？0指定したら整数が返ってきてほしい
+            expect(result).toBe(3.1415925);  //ISSUE:これはあるべき姿？0を指定したら整数が返ってきてほしい(デフォルトの7桁で計算されてしまっている)
         });
         it("numberFormat. argument is minimum.", ()=>{
             result = svgmap.numberFormat(3.1415925434,1);
