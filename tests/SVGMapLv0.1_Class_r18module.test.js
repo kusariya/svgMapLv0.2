@@ -1,4 +1,4 @@
-import {it, jest} from '@jest/globals';
+import {jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
 import {GenericMatrix} from "../libs/TransformLib";
 
@@ -383,6 +383,14 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(result).toBe(3.1415925);
         });
         
+        // refer to LinkedDocOp
+        it("LinkedDocOp. one time",()=>{
+            // ここは関数として呼び出せるかの試験
+            // 再起処理の試験はLinkedDocOp.jsの試験で実施する
+            const recursiveFunc = jest.fn();
+            svgmap.linkedDocOp(recursiveFunc,"root","param1");
+            expect(recursiveFunc).toHaveBeenCalledTimes(1);
+        });
     });
     
     describe("refer to MapTicker classes.",()=>{
