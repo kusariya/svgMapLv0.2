@@ -157,7 +157,8 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
         showPoiProperty:
             {
                 showModal: mockMethod,
-                setShowPoiProperty: mockMethod
+                setShowPoiProperty: mockMethod,
+                parseEscapedCsvLine: mockMethod
             }
     })),
 }));
@@ -351,6 +352,26 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setCustomModal();
             expect(result).toBeFalsy();
         });
+
+        // refer to UtilFuncs
+
+        it("numberFormat. argument is normal.", ()=>{
+            result = svgmap.numberFormat(3.1415925434,5);
+            expect(result).toBe(3.14159);
+        });
+        it("numberFormat. argument is minimum.", ()=>{
+            result = svgmap.numberFormat(3.1415925434,0);
+            expect(result).toBe(3);  //これは正しいのだろうか？0指定したら整数が返ってきてほしい
+        });
+        it("numberFormat. argument is minimum.", ()=>{
+            result = svgmap.numberFormat(3.1415925434,1);
+            expect(result).toBe(3.1);
+        });
+        it("numberFormat. argument of digit is null", ()=>{
+            result = svgmap.numberFormat(3.1415925434);
+            expect(result).toBe(3.1415925);
+        });
+        
     });
     
     describe("refer to MapTicker classes.",()=>{
@@ -386,6 +407,10 @@ describe("unittest for SVGMap Core Module", ()=>{
             let result = svgmap.showUseProperty(); 
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith();
+        });
+
+        it("parseEscapedCsvLine", ()=>{
+            result = svgmap.parseEscapedCsvLine("");
         });
         
     });
