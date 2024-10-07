@@ -506,6 +506,15 @@ class SvgMap {
 	}
 
 
+	/**
+	 * @function ERR404時や、timeout時に行う処理
+	 * 
+	 * @param {String} docId 
+	 * @param {String} docPath 
+	 * @param {Response} httpRes 
+	 * @param {Boolean} isTimeout 
+	 * @returns {undefined}
+	 */
 	#handleErrorResult( docId , docPath, httpRes, isTimeout){
 		// ERR404時や、timeout時に行う処理(2020/2/13 timeout処理を追加)
 		delete this.#resourceLoadingObserver.loadingImgs[docId]; // debug 2013.8.22
@@ -522,6 +531,16 @@ class SvgMap {
 		return;
 	}
 	
+	/**
+	 * @function 
+	 * 
+	 * @param {String} docId 
+	 * @param {String} docPath 
+	 * @param {Document} parentElem 
+	 * @param {Response} httpRes
+	 * @param {String} parentSvgDocId 
+	 * @returns 
+	 */
 	#handleResult( docId , docPath , parentElem , httpRes , parentSvgDocId ){
 	//	console.log("httpRes:id,res:",docId,httpRes);
 		if (( httpRes.readyState == 4 ) ){
@@ -1876,9 +1895,28 @@ class SvgMap {
 	};
 	getVerticalScreenScale(...params){ return (this.#essentialUIs.getVerticalScreenScale(...params)) };
 	getViewBox(...params){ return (this.#getViewBox(...params)) };
+	
+	/**
+	 * 
+	 * @param  {undefine} params 
+	 * @returns {undefined}
+	 */
 	gps(...params){ return (this.#gps.gps(...params)) };
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	gpsCallback(...params){ return (this.#gps.gpsSuccess(...params)) };
+
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	handleResult(...params){ return (this.#handleResult(...params)) };
+	
 	ignoreMapAspect(){ this.#essentialUIs.ignoreMapAspect = true; };
 	initLoad(...params){ return (this.#initLoad(...params)) };
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
