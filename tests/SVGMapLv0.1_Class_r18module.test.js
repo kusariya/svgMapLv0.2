@@ -58,6 +58,10 @@ jest.spyOn(document, 'getElementsByTagName').mockReturnValue(documentObject);
 jest.spyOn(document, 'createElement').mockReturnValue(documentObject);
 jest.spyOn(document.body,"appendChild").mockReturnValue();
 jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
+global.navigator.geolocation = {getCurrentPosition: jest.fn()}
+// masked console.log
+jest.spyOn(console, "log").mockReturnValue();
+jest.spyOn(console, "warn").mockReturnValue();
 
 //================================================================
 // mocking 結構カオスになった
@@ -391,6 +395,13 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgmap.linkedDocOp(recursiveFunc,"root","param1");
             expect(recursiveFunc).toHaveBeenCalledTimes(1);
         });
+
+        // refer to GPS
+        it("gps function. get position from gps & move position on map.", ()=>{
+            result = svgmap.gps();
+            expect(result).toBe();
+        });
+
     });
     
     describe("refer to MapTicker classes.",()=>{
