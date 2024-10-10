@@ -254,6 +254,13 @@ class UtilFuncs {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param {Object} rect1 x,y,width,height,nonScalingをキーに持つオブジェクト
+	 * @param {Object} rect2 x,y,width,height,nonScalingをキーに持つオブジェクト
+	 * @description nonScalingオプションがTrueの場合はwidth,heightを0として扱います
+	 * @returns {Boolean}
+	 */
 	static isIntersect( rect1 , rect2 ){
 		var sec1, sec2;
 		if ( rect1.nonScaling ){ // nonScaling設定の時はサイズ０として判断するようにする 2018.3.2
