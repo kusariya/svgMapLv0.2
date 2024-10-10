@@ -387,6 +387,37 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(result).toBe(3.1415925);
         });
         
+        it("isIntersect. rect1 overlap with rect2.", ()=>{
+            const rect1 = {x:10,y:10,width:70,height:40, nonScaling:false};
+            const rect2 = {x:50,y:35,width:5,height:5, nonScaling:false};
+            result = svgmap.isIntersect(rect1,rect2);
+            expect(result).toBeTruthy();
+        });
+        it("isIntersect. rect1 overlap with a part of rect2", ()=>{
+            const rect1 = {x:10,y:10,width:70,height:40, nonScaling:false};
+            const rect2 = {x:50,y:35,width:100,height:100, nonScaling:false};
+            result = svgmap.isIntersect(rect1,rect2);
+            expect(result).toBeTruthy();
+        });
+        it("isIntersect. rect1 is far away from rect2", ()=>{
+            const rect1 = {x:10,y:10,width:70,height:40, nonScaling:false};
+            const rect2 = {x:100,y:100,width:100,height:100, nonScaling:false};
+            result = svgmap.isIntersect(rect1,rect2);
+            expect(result).toBeFalsy();
+        });
+        it("isIntersect. rect1 overlap with rect2(nonScaling Option is True).", ()=>{
+            const rect1 = {x:10,y:10,width:70,height:40, nonScaling:false};
+            const rect2 = {x:50,y:35,width:5,height:5, nonScaling:true};
+            result = svgmap.isIntersect(rect1,rect2);
+            expect(result).toBeTruthy();
+        });
+        it("isIntersect. rect1 is far away from rect2(nonScaling Option is True).", ()=>{
+            const rect1 = {x:10,y:10,width:70,height:40, nonScaling:false};
+            const rect2 = {x:100,y:100,width:100,height:100, nonScaling:true};
+            result = svgmap.isIntersect(rect1,rect2);
+            expect(result).toBeFalsy();
+        });
+        
         // refer to LinkedDocOp
         it("LinkedDocOp. one time",()=>{
             // ここは関数として呼び出せるかの試験
