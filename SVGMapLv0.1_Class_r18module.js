@@ -1919,6 +1919,12 @@ class SvgMap {
 	
 	ignoreMapAspect(){ this.#essentialUIs.ignoreMapAspect = true; };
 	initLoad(...params){ return (this.#initLoad(...params)) };
+	
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
 	
 	/**
