@@ -1541,6 +1541,12 @@ class SvgMap {
 		}
 	}
 
+	/**
+	 * @description 指定したSVG文書のviewBoxを取得
+	 * 
+	 * @param {XMLDocument} svgDoc  svg文書
+	 * @returns {Object} ViewBox(x,y,width,height)sを含むオブジェクトを返す
+	 */
 	#getViewBox( svgDoc ){
 		var va = svgDoc.documentElement.getAttribute("viewBox");
 		if ( va ){
@@ -1594,7 +1600,7 @@ class SvgMap {
 	 * @param {String} layerId
 	 * 
 	 * 
-	 * TODO: デフォルト引数としてdpr=1/layerId="root"を設定するのがベター？
+	 * TODO: デフォルト引数としてdpr=1, layerId="root"を設定するのがベター？
 	 */
 	#setDevicePixelRatio( dpr , layerId ){
 		// 2020/5/13 layerId毎に指定するlayerDevicePixelRatio設定＆クリア機能を追加
@@ -1894,6 +1900,12 @@ class SvgMap {
 		}
 	};
 	getVerticalScreenScale(...params){ return (this.#essentialUIs.getVerticalScreenScale(...params)) };
+	
+	/**
+	 * 
+	 * @param  {...any} params 
+	 * @returns 
+	 */
 	getViewBox(...params){ return (this.#getViewBox(...params)) };
 	
 	/**
