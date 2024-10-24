@@ -1899,6 +1899,12 @@ class SvgMap {
 			uaProp: this.#mapViewerProps.uaProps
 		}
 	};
+
+	/**
+	 * 
+	 * @param  {Number} params // 画面上のpx
+	 * @returns {Number}       // 水平距離(km)
+	 */
 	getVerticalScreenScale(...params){ return (this.#essentialUIs.getVerticalScreenScale(...params)) };
 	
 	/**

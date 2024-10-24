@@ -361,6 +361,15 @@ class EssentialUIs{
 		
 	}
 
+	/**
+	 * @function 
+	 * 
+	 * @name getVerticalScreenScale
+	 * @description 画面上の垂直距離を返す関数(地球は楕円なのでメルカトル図法では水平方向と垂直方向で距離が異なります)
+	 * 
+	 * @param {Number} screenLength // 単位はpx
+	 * @returns {Number}  // 単位はkm
+	 */
 	getVerticalScreenScale( screenLength ){
 		// input: px, return : Km
 		var p1 = this.screen2Geo(1, 1);

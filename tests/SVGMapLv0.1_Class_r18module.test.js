@@ -128,6 +128,7 @@ jest.unstable_mockModule('../libs/EssentialUIs.js', () => ({
         updateCenterPos:jest.fn(),
         setCenterUI:jest.fn(),
         initNavigationUIs: jest.fn(),
+        getVerticalScreenScale: jest.fn().mockReturnValue(1),
         getGeoViewBox: mockGeoViewBox,
         initMapCanvas: mockMethodreturnString.mockReturnValue("http://localhost/container.svg"),
     })),
@@ -249,7 +250,6 @@ describe("unittest for SVGMap Core Module", ()=>{
             // 確認観点はエラーが出力されないことのみ
             svgmap.ignoreMapAspect();
         });
-
     });
     
     describe("refer to EssentialUIs classes.",()=>{
@@ -294,6 +294,10 @@ describe("unittest for SVGMap Core Module", ()=>{
             // カバレッジを増やすためだけの試験
             svgmap.registLayerUiSetter(jest.fn(), jest.fn());
         });
+        it("getVerticalScreenScale", ()=>{
+            // 確認観点はエラーが出力されないことのみ
+            svgmap.getVerticalScreenScale(10);
+        })
     });
     
     describe("refer to other classes.",()=>{
