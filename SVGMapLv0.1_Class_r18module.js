@@ -1909,22 +1909,24 @@ class SvgMap {
 	
 	/**
 	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param  {XMLDocument} params 
+	 * @returns {Object} ViewBox(x,y,width,height)sを含むオブジェクトを返す
 	 */
 	getViewBox(...params){ return (this.#getViewBox(...params)) };
 	
 	/**
 	 * 
-	 * @param  {undefine} params 
-	 * @returns {undefined}
+	 * @param  {undefine} params //引数なし
+	 * @returns {undefined} // 戻り値なし
 	 */
 	gps(...params){ return (this.#gps.gps(...params)) };
 
 	/**
-	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @function
+	 * @name gpsCallback
+	 * @description 位置情報取得に成功した後のコールバック関数をセットする関数
+	 * @param  {Function} params 
+	 * @returns {undefined}
 	 */
 	gpsCallback(...params){ return (this.#gps.gpsSuccess(...params)) };
 
