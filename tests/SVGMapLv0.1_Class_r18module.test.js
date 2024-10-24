@@ -171,10 +171,10 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
 //================================================================
 
 describe("unittest for SVGMap Core Module", ()=>{
-    let svgDoc="";
+    let svgDocString="";
     beforeEach(async ()=>{
         // XHRで取得するデータを設定
-        svgDoc = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
+        svgDocString = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
         const xhrMock = {
             open: jest.fn(),
             send: jest.fn().mockImplementation(()=>{xhrMock.onreadystatechange();}),
@@ -182,12 +182,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             setRequestHeader: jest.fn(),
             readyState: 4,
             status: 200,
-            responseText: svgDoc
+            responseText: svgDocString
         };
         jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock);
     });
     describe("refer to own classes.",()=>{
-        let svgmap, result, element;
+        let svgmap, result, element, svgDoc;
         beforeEach(async () => {
             const {SvgMap} = await import("../SVGMapLv0.1_Class_r18module");
             svgmap = new SvgMap();
@@ -234,6 +234,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             '</div>';
             let button = document.getElementById('button');
             svgmap.loadSVG("/Container.svg", "root", button);
+        });
+        it("getViewBox",()=>{
+            const parser = new DOMParser();
+            svgDoc = parser.parseFromString(svgDocString, "text/xml");
+            let viewbox = svgmap.getViewBox(svgDoc);
+            expect(viewbox).toStrictEqual({x:13500.0,y:-3375.0,width:1125.0,height:1125.0});
         });
     });
     
