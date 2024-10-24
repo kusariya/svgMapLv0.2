@@ -1929,6 +1929,10 @@ class SvgMap {
 	 */
 	handleResult(...params){ return (this.#handleResult(...params)) };
 	
+	/**
+	 * @description 通常レイヤーごとにViewBoxを指定できますが、rootSVGのviewBoxを参照するフラグ
+	 * 
+	 */
 	ignoreMapAspect(){ this.#essentialUIs.ignoreMapAspect = true; };
 
 	/**

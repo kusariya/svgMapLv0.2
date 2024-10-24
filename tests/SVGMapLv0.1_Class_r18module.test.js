@@ -242,9 +242,14 @@ describe("unittest for SVGMap Core Module", ()=>{
             expect(viewbox).toStrictEqual({x:13500.0,y:-3375.0,width:1125.0,height:1125.0});
         });
         it("initLoad", ()=>{
-            // 確認観点はエラーがないことのみ
+            // 確認観点はエラーが出力されないことのみ
             svgmap.initLoad();
         });
+        it("ignoreMapAspect", ()=>{
+            // 確認観点はエラーが出力されないことのみ
+            svgmap.ignoreMapAspect();
+        });
+
     });
     
     describe("refer to EssentialUIs classes.",()=>{
