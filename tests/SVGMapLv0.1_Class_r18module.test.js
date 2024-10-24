@@ -1,4 +1,4 @@
-import {jest} from '@jest/globals';
+import {it, jest} from '@jest/globals';
 import * as fs from "node:fs/promises";
 import {GenericMatrix} from "../libs/TransformLib";
 
@@ -240,6 +240,10 @@ describe("unittest for SVGMap Core Module", ()=>{
             svgDoc = parser.parseFromString(svgDocString, "text/xml");
             let viewbox = svgmap.getViewBox(svgDoc);
             expect(viewbox).toStrictEqual({x:13500.0,y:-3375.0,width:1125.0,height:1125.0});
+        });
+        it("initLoad", ()=>{
+            // 確認観点はエラーがないことのみ
+            svgmap.initLoad();
         });
     });
     

@@ -1930,6 +1930,13 @@ class SvgMap {
 	handleResult(...params){ return (this.#handleResult(...params)) };
 	
 	ignoreMapAspect(){ this.#essentialUIs.ignoreMapAspect = true; };
+
+	/**
+	 * 初期化関数であり、load時に"一回だけ"呼ばれる
+	 * 
+	 * @param  {undefined} params  // 引数ない
+	 * @returns {undefined}        // 戻り値もない
+	 */
 	initLoad(...params){ return (this.#initLoad(...params)) };
 	
 	/**
