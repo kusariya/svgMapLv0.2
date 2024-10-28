@@ -533,13 +533,14 @@ class SvgMap {
 	
 	/**
 	 * @function 
+	 * @name handleResult
 	 * 
 	 * @param {String} docId 
 	 * @param {String} docPath 
 	 * @param {Document} parentElem 
 	 * @param {Response} httpRes
 	 * @param {String} parentSvgDocId 
-	 * @returns 
+	 * @returns {undefined}
 	 */
 	#handleResult( docId , docPath , parentElem , httpRes , parentSvgDocId ){
 	//	console.log("httpRes:id,res:",docId,httpRes);
@@ -1790,6 +1791,9 @@ class SvgMap {
 	#updateLayerListUIint;
 
 	/**
+	 * @function
+	 * @name #reLoadLayer
+	 * @description 指定したレイヤー(ルートコンテナのレイヤー)をリロードする
 	 * 
 	 * @param {String} layerID_Numb_Title 
 	 */
@@ -1931,9 +1935,14 @@ class SvgMap {
 	gpsCallback(...params){ return (this.#gps.gpsSuccess(...params)) };
 
 	/**
+	 * @function 
 	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param {String} docId 
+	 * @param {String} docPath 
+	 * @param {Document} parentElem 
+	 * @param {Response} httpRes
+	 * @param {String} parentSvgDocId 
+	 * @returns {undefined}
 	 */
 	handleResult(...params){ return (this.#handleResult(...params)) };
 	
@@ -1953,8 +1962,10 @@ class SvgMap {
 	
 	/**
 	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param {Object} rect1 x,y,width,height,nonScalingをキーに持つオブジェクト
+	 * @param {Object} rect2 x,y,width,height,nonScalingをキーに持つオブジェクト
+	 * @description nonScalingオプションがTrueの場合はwidth,heightを0として扱います
+	 * @returns {Boolean}
 	 */
 	isIntersect(...params){ return (UtilFuncs.isIntersect(...params)) };
 	
@@ -1973,8 +1984,11 @@ class SvgMap {
 
 	/**
 	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param {String} path 
+	 * @param {String} id 
+	 * @param {Document} parentElem 
+	 * @param {*} parentSvgDocId -- 不明
+	 * @returns {undefined}
 	 */
 	loadSVG(...params){ return (this.#loadSVG(...params)) };
 
@@ -2040,9 +2054,11 @@ class SvgMap {
 	};
 
 	/**
+	 * @function
+	 * @description 指定したレイヤー(ルートコンテナのレイヤー)をリロードする
 	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param {String} layerID_Numb_Title 
+	 * @returns {undefined}
 	 */
 	reLoadLayer(...params){ return (this.#reLoadLayer(...params))};
 
@@ -2055,21 +2071,26 @@ class SvgMap {
 
 	/**
 	 * 
-	 * @param  {...any} params 
+	 * @param {Number} screenX 
+	 * @param {Number} screenY 
 	 * @returns {Object|null} lat/lngのキーを含むhashを戻す
 	 */
 	screen2Geo(...params){ return (this.#essentialUIs.screen2Geo(...params))};
 
 	/**
 	 * 
-	 * @param  {...any} params 
+	 * @param {String|Document} messageHTML 
+	 * @param {Array} buttonMessages // どういう中身かまでわかっていない
+	 * @param {Function} callback 
+	 * @param {Object} callbackParam 
 	 * @returns {undefined}
 	 */
 	setCustomModal(...params){ return (this.#customModal.setCustomModal(...params))};
 
 	/**
 	 * 
-	 * @param  {...any} params 
+	 * @param {Number} dpr 
+	 * @param {String} layerId
 	 * @returns {undefined}
 	 */
 	setDevicePixelRatio(...params){ return (this.#setDevicePixelRatio(...params))};
@@ -2082,22 +2103,29 @@ class SvgMap {
 	getDevicePixelRatio(...params){ return (this.#getDevicePixelRatio(...params))};
 
 	/**
-	 * 
-	 * @param  {...any} params 
-	 * @returns 
+	 * @param {Number} lat 必須
+	 * @param {Number} lng 必須
+	 * @param {Number} radius [lat-side-deg]オプション(今の縮尺のまま移動) ( setGeoViewPort(lat,lng,h,w) という関数もあります )
+
+	 * @returns {undefined}
 	 */
 	setGeoCenter(...params){ return (this.#essentialUIs.setGeoCenter(...params))};
 
 	/**
 	 * 
-	 * @param  {...any} params 
-	 * @returns {Boolean} 
+	 * @param {Number} lat 
+	 * @param {Number} lng 
+	 * @param {Number} latSpan //緯度方向の範囲？単位はdegree？
+	 * @param {Number} lngSpan //軽度方向の範囲？単位はdegree？
+	 * @param {Boolean} norefresh //画面更新を実施するかのフラグ
+	 * @returns {Boolean}
 	 */
 	setGeoViewPort(...params){ return (this.#essentialUIs.setGeoViewPort(...params))};
 
 	/**
 	 * 
-	 * @param  {...any} params 
+	 * @param {String} layerID_Numb_Title 
+	 * @param {*} visible //型が不明(Boolean or String)
 	 * @returns {undefined} //戻り値なし
 	 */
 	setLayerVisibility(...params){ return (this.#layerManager.setLayerVisibility(...params))};
@@ -2143,7 +2171,11 @@ class SvgMap {
 	};
 	/**
 	 * 
-	 * @param  {...any} params 
+	 * @param {Function} documentURLviaProxyFunction 
+	 * @param {Function} imageURLviaProxyFunction 
+	 * @param {Boolean} imageCrossOriginAnonymous 
+	 * @param {Function} imageURLviaProxyFunctionForNonlinearTransformation 
+	 * @param {Boolean} imageCrossOriginAnonymousForNonlinearTransformation 
 	 * @returns {undefined}
 	 */
 	setProxyURLFactory(...params){ return (this.#proxyManager.setProxyURLFactory(...params))};
@@ -2153,12 +2185,12 @@ class SvgMap {
 
 	/**
 	 * 
-	 * @param  {} layerID_Numb_Title
-	 * @param  {} visible
-	 * @param  {} editing
-	 * @param  {} hashOption
-	 * @param  {} removeLayer 
-	 * @returns 
+	 * @param {String} layerID_Numb_Title 
+	 * @param {*} visible //Booleanなのかvisible/hiddenというStringが入るのかわからない
+	 * @param {Boolean} editing
+	 * @param {String} hashOption //queryStringとしてURLに付与されるようです。
+	 * @param {Boolean} removeLayer //子要素を削除するオプション
+	 * @returns {undefined}
 	 */
 	setRootLayersProps(...params){ return (this.#layerManager.setRootLayersProps(...params))};
 
@@ -2205,14 +2237,16 @@ class SvgMap {
 
 	/**
 	 * 
-	 * @param {*} ratio 
+	 * @param {Number} ratio ズーム倍率
 	 */
 	setZoomRatio( ratio ){ this.#zoomPanManager.setZoomRatio( ratio) };
 	
 	/**
 	 * 
-	 * @param  {...any} params 
-	 * @returns {undefined}
+	 * @param {String} htm UIなどを含むHTMLをStringにて受け渡します
+	 * @param {Number} maxW 
+	 * @param {Number} maxH 
+	 * @returns {Document} UIのDocumentObjectが返却
 	 */
 	showModal(...params){ return (this.#mapTicker.showPoiProperty.showModal(...params))};
 
@@ -2256,7 +2290,7 @@ class SvgMap {
 	zoomdown(...params){ return (this.#zoomPanManager.zoomdown(...params))};
 	/**
 	 * 
-	 * @param  {...any} params 引数なし
+	 * @param  {undefined} params 引数なし
 	 * @returns {undefined}
 	 */
 	zoomup(...params){ return (this.#zoomPanManager.zoomup(...params))};

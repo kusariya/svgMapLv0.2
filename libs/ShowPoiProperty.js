@@ -282,6 +282,13 @@ class ShowPoiProperty{
 		return ( ans );
 	}
 
+	/**
+	 * 
+	 * @param {String} htm UIなどを含むHTMLをStringにて受け渡します
+	 * @param {Number} maxW 
+	 * @param {Number} maxH 
+	 * @returns {Document} UIのDocumentObjectが返却
+	 */
 	showModal( htm , maxW, maxH ){
 		var modalDiv;
 		if ( document.getElementById("modalDiv") ){

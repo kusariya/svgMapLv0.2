@@ -475,6 +475,18 @@ class EssentialUIs{
 	}
 
 	// 地理(グローバル)座標系で指定したエリアを包含する最小のviewportを設定する
+	/**
+	 * @function
+	 * @name setGeoViewPort
+	 * @description 地理(グローバル)座標系で指定したエリアを包含する最小のviewportを設定する
+	 * 
+	 * @param {Number} lat 
+	 * @param {Number} lng 
+	 * @param {Number} latSpan //緯度方向の範囲？単位はdegree？
+	 * @param {Number} lngSpan //軽度方向の範囲？単位はdegree？
+	 * @param {Boolean} norefresh //画面更新を実施するかのフラグ
+	 * @returns {Boolean}
+	 */
 	setGeoViewPort( lat, lng, latSpan , lngSpan , norefresh){
 		if (  !latSpan || !lngSpan ){
 			return ( false );

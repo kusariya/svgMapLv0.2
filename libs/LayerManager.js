@@ -376,11 +376,11 @@ class LayerManager{
 	setRootLayersPropsPostprocessed=false; // add 2021/10/14 updateLayerListUIint();必須し忘れ問題への対策フラグ
 	/**
 	 * 
-	 * @param {*} layerID_Numb_Title 
-	 * @param {*} visible 
-	 * @param {*} editing 
-	 * @param {*} hashOption 
-	 * @param {*} removeLayer 
+	 * @param {String} layerID_Numb_Title 
+	 * @param {*} visible //Booleanなのかvisible/hiddenというStringが入るのかわからない
+	 * @param {Boolean} editing
+	 * @param {String} hashOption //queryStringとしてURLに付与されるようです。
+	 * @param {Boolean} removeLayer //子要素を削除するオプション
 	 * @returns 
 	 */
 	setRootLayersProps(layerID_Numb_Title, visible , editing , hashOption , removeLayer){
@@ -474,6 +474,11 @@ class LayerManager{
 	}
 
 	// setRootLayersPropsの簡単版　ただし、layerListUIのアップデートも行ってくれる
+	/**
+	 * 
+	 * @param {String} layerID_Numb_Title 
+	 * @param {*} visible //型が不明(Boolean or String)
+	 */
 	setLayerVisibility( layerID_Numb_Title, visible ){
 		this.setRootLayersProps(layerID_Numb_Title, visible , false );
 		/** refreshScreen側で実行するように改修 2021/10/14
