@@ -464,6 +464,11 @@ class UtilFuncs {
 		return ( matrix );
 	}
 	
+	/**
+	 * 
+	 * @param {Document} svgPoiNode 
+	 * @returns {Object} x,y,nonScalingを含む座標オブジェクト
+	 */
 	static getNonScalingOffset( svgPoiNode ){ // getPoiPosから改称 2018.3.2
 		// vectorEffect,transform(ref ノンスケールのための基点座標取得
 		try {

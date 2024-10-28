@@ -173,9 +173,6 @@ describe("unittest for UtilFuncs",()=>{
                 "href": "",
                 "href_fragment": undefined,
                 "imageFilter": null,
-                "maxZoom": undefined,
-                "metadata": undefined,
-                "minZoom": undefined,
                 "nonScaling": true,
                 "opacity": 0,
                 "pixelated": false,
@@ -299,7 +296,7 @@ describe("unittest for UtilFuncs",()=>{
             svgElement.setAttribute("transform", "ref(svg,13000,-5000)");
 		    console.log("getNonScalingOffset Method Start... : ", performance.now());
             let result = UtilFuncs.getNonScalingOffset(svgElement);
-            expect(result).toBe(""); // 引数のsvgPoiNodeとsvgElementの違いは何？
+            expect(result).toStrictEqual({x:13000,y:-5000,nonScaling:true}); // 引数のsvgPoiNodeとsvgElementの違いは何？
         });
 
         it("get a Symbol",async ()=>{
