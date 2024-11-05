@@ -42,6 +42,18 @@ Development has started in May 2022 as SVGMapLv0.1_r18module.js, and this versio
 
 ```sudo n lts```
 
+#### install playwright
+
+WSL2(Ubuntu24.04)で動作確認済み
+※Ubuntu22.04ではSafari(WebKit)がインストールできないので注意
+
+```npx playwright install```
+```sudo npx playwright install-deps```
+
+#### install playwright for VSCode
+
+VSCode -> Extensions -> Playwright Test for VSCode
+
 #### excute unittest
 
 ```npm test```
@@ -49,3 +61,6 @@ Development has started in May 2022 as SVGMapLv0.1_r18module.js, and this versio
 #### code format (TBD)
 ```prettier --use-tabs``` 
 
+#### excute E2E test
+
+```npm run e2e```
