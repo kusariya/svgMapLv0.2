@@ -43,8 +43,8 @@ test("this test is action of pan.", async ({page}) => {
   await page.mouse.down();
   await page.mouse.move(500,600);
   await page.mouse.up();
-  await page.waitForSelector('#i118');
-  await expect(page.locator('#i118')).toBeVisible();
+  await page.waitForSelector('#i68'); // ディスプレイの解像度によってタイル画像のIDが変わるため一貫性がない試験になってます。よい方法があれば修正ください
+  await expect(page.locator('#i68')).toBeVisible();
 });
 
 test("this test is action of zoom.", async ({page}) => {
