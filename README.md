@@ -42,6 +42,10 @@ Development has started in May 2022 as SVGMapLv0.1_r18module.js, and this versio
 
 ```sudo n lts```
 
+#### install node_modules
+
+```npm install```
+
 #### install playwright
 
 WSL2(Ubuntu24.04)で動作確認済み
@@ -50,7 +54,9 @@ WSL2(Ubuntu24.04)で動作確認済み
 ```npx playwright install```
 ```sudo npx playwright install-deps```
 
-#### install playwright for VSCode
+#### optional) install playwright for VSCode
+
+こちらはオプション(必須ではない)
 
 VSCode -> Extensions -> Playwright Test for VSCode
 
