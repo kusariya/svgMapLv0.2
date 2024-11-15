@@ -401,7 +401,7 @@ class SvgMap {
 	//	console.log("AppName:",navigator.appName,"  UAname:",navigator.userAgent);
 	//	if ( navigator.appName == 'Microsoft Internet Explorer' && window.createPopup )
 		this.#mapViewerProps.uaProps = new UAtester();
-		
+
 		//this.#mapViewerProps.mapCanvas.title = ""; // titleにあると表示されてしまうので消す
 	//	console.log(mapCanvas);
 		this.#mapViewerProps.setMapCanvasSize( UtilFuncs.getCanvasSize() );
@@ -1896,6 +1896,10 @@ class SvgMap {
 	getSymbols(...params){ return (UtilFuncs.getSymbols(...params)) };
 	getTickerMetadata(...params){ return (this.#mapTicker.getTickerMetadata(...params)) };
 	getTransformedBox(...params){ return (this.#matUtil.getTransformedBox(...params)) };
+	/**
+	 * @description UserAgentの情報を取得する関数
+	 * @returns {Object} {isIE: Boolean, isSP: Boolean, uaProp:Object} 
+	 */
 	getUaProp(){
 		return {
 			isIE: this.#mapViewerProps.uaProps.isIE,

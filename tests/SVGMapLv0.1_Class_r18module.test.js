@@ -71,9 +71,6 @@ jest.unstable_mockModule('../libs/MapViewerProps.js', () => ({
     MapViewerProps: jest.fn().mockImplementation(() => ({
         constructor: mockMethod,
         hasUaProps: mockMethod,
-        uaProps:{
-            verIE: 6
-        },
         mapCanvas: documentObject,
         mapCanvasSize:{
             width: 0,
@@ -325,6 +322,18 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.setMapCanvasSize({x:10,y:20,width:100,height:200}); 
             expect(result).toBeUndefined();
             expect(mockMethod).toHaveBeenCalledWith({x:10,y:20,width:100,height:200});
+        });
+
+        it("getUaProp", ()=>{
+            // ISSUE: uaPropsの作成は以下の通り。mapViewerPropsをインスタンス化する際にコンストラクタで作成するほうがスマートでは？
+            // this.#mapViewerProps.uaProps = new UAtester();
+            result = svgmap.getUaProp();
+            expect(result).toStrictEqual({
+                isIE:expect.anything(),
+                isSP:expect.anything(),
+                // ISSUE: UAtesterオブジェクトにもisIEとisSPがあり、重複しているため整理が必要
+                uaProp:expect.anything() // = UAtesterObject
+            });
         });
 
         // refer to LayerManager
