@@ -561,6 +561,20 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.matMul(m1, m2);
             expect(result).toBeInstanceOf(Object);
         });
+        
+        it("getTransformedBox", ()=>{
+            let matrix = new GenericMatrix();
+            matrix.setLinearCRS(1,2,3,4,5,6);
+            let inBox = {x:100, y:20, width: 1000, height: 300};
+            result = svgmap.getTransformedBox(inBox, matrix);
+            expect(result).toStrictEqual({
+                x: 165,
+                y: 286,
+                width: 1900,
+                height: 3200
+            });  //MEMO: 手計算してないのであっているかは不明
+        });
+        
     });
 
     describe("refer to zoompanmanager classes.",()=>{

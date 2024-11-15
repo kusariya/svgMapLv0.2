@@ -3,6 +3,12 @@
 // 2022/08/16 SVGMap.jsから切り出し
 
 class MatrixUtil {
+	/**
+	 * 
+	 * @param {Object} inBox 変換前のViewBox 
+	 * @param {GenericMatrix} matrix 変換行列
+	 * @returns {Object|null} 変換後のViewBox（座標と縦横のサイズ）
+	 */
 	getTransformedBox( inBox , matrix){
 		// transformRectと被っていると思われる・・ので実質統合化した 2020/10/22
 		if ( !matrix.transform && matrix.b == 0 && matrix.c == 0 ){
@@ -344,11 +350,32 @@ class MatrixUtil {
 }
 
 class GenericMatrix{
+	/**
+	 * 
+	 * @param {Function} transform 座標変換する際に用いる関数
+	 * @param {Function} inverse 逆行列を計算する関数
+	 * @param {Number} scale たぶん倍率 
+	 */
 	setNonLinearCRS(transform, inverse, scale){
 		this.transform = transform;
 		this.inverse = inverse;
 		this.scale = scale;
 	}
+	/**
+	 * 
+	 * @description 汎用的な行列
+	 * 
+	 * | a c e |
+	 * | b d f |
+	 * | 0 0 1 |
+	 * 
+	 * @param {Number} a 
+	 * @param {Number} b 
+	 * @param {Number} c 
+	 * @param {Number} d 
+	 * @param {Number} e 
+	 * @param {Number} f 
+	 */
 	setLinearCRS(a,b,c,d,e,f){
 		this.a = a;
 		this.b = b;
