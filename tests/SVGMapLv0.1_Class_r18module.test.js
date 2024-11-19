@@ -140,6 +140,7 @@ jest.unstable_mockModule('../libs/ZoomPanManager.js', () => ({
         zoomdown: mockMethod
     })),
 }));
+
 jest.unstable_mockModule('../libs/MapTicker.js',()=>({
     MapTicker: jest.fn().mockImplementation(()=>({ 
         constructor: mockMethod,
@@ -163,7 +164,8 @@ jest.unstable_mockModule('../libs/MapTicker.js',()=>({
                 showModal: mockMethod,
                 setShowPoiProperty: mockMethod,
                 parseEscapedCsvLine: mockMethod
-            }
+            },
+        getTickerMetadata: jest.fn()
     })),
 }));
 //================================================================
@@ -502,6 +504,12 @@ describe("unittest for SVGMap Core Module", ()=>{
             result = svgmap.parseEscapedCsvLine("");
         });
         
+        it("getTickerMetadata", ()=>{
+            // dynamicLoad()時にcheckTikerが呼ばれる
+            // #mapTicker.getTickerMetadataはMock化しているため何も返ってきません。
+            // 単体試験は./MapTicker.test.jsで行う
+            result = svgmap.getTickerMetadata();
+        });
     });
 
     describe("refer to SVGMapLv0.1_LayerUI_r6module classes.",()=>{

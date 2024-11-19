@@ -1894,6 +1894,12 @@ class SvgMap {
 	getSvgTarget(...params){ return (this.#getSvgTarget(...params)) };
 	getSwLayers(...params){ return (this.#layerManager.getSwLayers(...params)) };
 	getSymbols(...params){ return (UtilFuncs.getSymbols(...params)) };
+
+	/**
+	 * 
+	 * @param  {undefined} params // 引数なし
+	 * @returns {undefined} //返り値なし
+	 */
 	getTickerMetadata(...params){ return (this.#mapTicker.getTickerMetadata(...params)) };
 	
 	/**
