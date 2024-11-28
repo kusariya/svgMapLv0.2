@@ -75,5 +75,14 @@ describe("unittest for SvgMapGIS",()=>{
             let result = svgmapgis.drawKml(kml, targetId);
             expect(result).toBe(undefined);
         });
+        
+        it("drawKmlの動作確認(style)",async ()=>{
+            const str_kml = await fs.readFile("./resources/kml/style.kml", "UTF-8");
+            let parser = new DOMParser();
+            kml = parser.parseFromString(str_kml, 'text/xml');
+            let targetId = "i5";
+            let result = svgmapgis.drawKml(kml, targetId);
+            expect(result).toBe(undefined);
+        });
     });
 });
