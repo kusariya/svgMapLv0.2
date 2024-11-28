@@ -1,6 +1,6 @@
 import {SvgMapGIS} from "../SVGMapLv0.1_GIS_r4_module";
 import {mock_svgmapObj, mock_mapViewerProps} from "../resources/mockParamerters";
-import {jest} from "@jest/globals";
+import {expect, jest} from "@jest/globals";
 
 import * as io from 'jsts/org/locationtech/jts/io.js';
 import * as geom from 'jsts/org/locationtech/jts/geom.js';
@@ -47,6 +47,24 @@ describe("unittest for SvgMapGIS",()=>{
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
             svgmapgis.drawKml(kml, targetId);
+        });
+
+        it("drawKmlの動作確認(Properties)",async ()=>{
+            const str_kml = await fs.readFile("./resources/kml/properties.kml", "UTF-8");
+            let parser = new DOMParser();
+            kml = parser.parseFromString(str_kml, 'text/xml');
+            let targetId = "i5";
+            let result = svgmapgis.drawKml(kml, targetId);
+            expect(result).toBe(undefined);
+        });
+
+        it("drawKmlの動作確認(lineString)",async ()=>{
+            const str_kml = await fs.readFile("./resources/kml/linestring.kml", "UTF-8");
+            let parser = new DOMParser();
+            kml = parser.parseFromString(str_kml, 'text/xml');
+            let targetId = "i5";
+            let result = svgmapgis.drawKml(kml, targetId);
+            expect(result).toBe(undefined);
         });
     });
 });
