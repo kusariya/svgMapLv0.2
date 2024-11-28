@@ -9,7 +9,7 @@ import * as simplify from 'jsts/org/locationtech/jts/simplify.js';
 import * as fs from "node:fs/promises";
 
 describe("unittest for SvgMapGIS",()=>{
-    describe("",()=>{
+    describe("target KML",()=>{
         let svgmapgis, mock_jsts;
         let kml
         beforeAll(()=>{
