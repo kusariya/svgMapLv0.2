@@ -15,7 +15,10 @@ const mock_svgmapObj = {
         },
         "i5":{
             //無理やりdocumentを返しちゃっている
-            createElement: jest.fn().mockReturnValue(document.createElement("use"))
+            createElement: jest.fn().mockReturnValue(document.createElement("use")),
+            documentElement:{
+                appendChild: jest.fn()
+            }
         },
         "i7":{}
     }),
