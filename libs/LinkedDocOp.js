@@ -36,13 +36,10 @@ class LinkedDocOp{
 	linkedDocOp( func , docHash , param1, param2 , param3 , param4 , param5 ){
 		var targetDoc = this.#svgImages[ docHash ];
 		var targetDocProps = this.#svgImagesProps[ docHash ];
-		console.log(targetDoc,targetDocProps);
-
 		if ( targetDoc ){
 			func(targetDoc , targetDocProps , param1, param2 , param3 , param4 , param5 );
 			// child Docs再帰処理
 			var childDocs = targetDocProps.childImages;
-			console.log(childDocs);
 			for ( var i in childDocs ){
 				if ( childDocs[i] == SvgMapElementType.CLICKABLE || childDocs[i] == SvgMapElementType.EXIST ){
 					// existなのに実存しない？(unloadしているのにexistのままだな)
