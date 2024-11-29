@@ -21,30 +21,18 @@ test('check the LayerSpecific UI.', async ({ page }) => {
   await page.getByLabel('Layer List: 1 layers visible').click();
   await page.locator('td').filter({ hasText: 'worldcities' }).click();
   await page.getByText('worldcities').click();
-  await page.locator('#layerSpecificUIframe_i43').contentFrame().getByRole('heading', { name: 'World Cities Layer' }).click();
-  await expect(page.locator('#layerSpecificUIframe_i43').contentFrame().getByRole('heading', { name: 'World Cities Layer' })).toBeVisible();
+  let iframes = await page.locator('#layerSpecificUIbody').locator('iframe').last();
+  await expect(iframes.contentFrame().getByRole('heading', { name: 'World Cities Layer' })).toBeVisible();
 });
 
 test("layer ON/OFF", async ({page}) => {
   await page.goto(url);
   await page.getByLabel('Layer List: 1 layers visible').click();
   await page.getByText('AED').click();
-  await expect(page.locator('#layerSpecificUIframe_i42').contentFrame().getByRole('heading', { name: 'このレイヤーについて(ABOUT)' })).toBeVisible();
+  let iframes = await page.locator('#layerSpecificUIbody').locator('iframe').last();
+  await expect(iframes.contentFrame().getByRole('heading', { name: 'このレイヤーについて(ABOUT)' })).toBeVisible();
   await page.getByText('AED').click();
-  await expect(page.locator('#layerSpecificUIframe_i42').contentFrame().getByRole('heading', { name: 'このレイヤーについて(ABOUT)' })).toBeHidden();
-});
-
-test("this test is action of pan.", async ({page}) => {
-  await page.goto(url);
-  await page.getByLabel('Layer List: 1 layers visible').click();
-  await page.getByText('AED').click();
-  await page.waitForSelector('#i52');
-  await page.mouse.move(500,200);
-  await page.mouse.down();
-  await page.mouse.move(500,600);
-  await page.mouse.up();
-  await page.waitForSelector('#i68'); // ディスプレイの解像度によってタイル画像のIDが変わるため一貫性がない試験になってます。よい方法があれば修正ください
-  await expect(page.locator('#i68')).toBeVisible();
+  await expect(iframes.contentFrame().getByRole('heading', { name: 'このレイヤーについて(ABOUT)' })).toBeHidden();
 });
 
 test("this test is action of zoom.", async ({page}) => {
