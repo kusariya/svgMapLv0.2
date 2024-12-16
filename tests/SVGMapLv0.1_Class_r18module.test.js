@@ -174,7 +174,7 @@ describe("unittest for SVGMap Core Module", ()=>{
     let svgDocString="";
     beforeEach(async ()=>{
         // XHRで取得するデータを設定
-        svgDocString = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
+        svgDocString = await fs.readFile("./tests/resources/svgDoc_singleSymbol.svg", "UTF-8");
         const xhrMock = {
             open: jest.fn(),
             send: jest.fn().mockImplementation(()=>{xhrMock.onreadystatechange();}),
