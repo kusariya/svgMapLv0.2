@@ -1,5 +1,5 @@
 import {SvgMapGIS} from "../SVGMapLv0.1_GIS_r4_module";
-import {mock_svgmapObj, mock_mapViewerProps} from "../resources/mockParamerters";
+import {mock_svgmapObj} from "./resources/mockParamerters";
 import {expect, jest} from "@jest/globals";
 
 import * as io from 'jsts/org/locationtech/jts/io.js';
@@ -26,7 +26,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
 
         it("drawKmlの動作確認(Points)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/point.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/point.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -34,7 +34,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
 
         it("drawKmlの動作確認(documents)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/document.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/document.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -42,7 +42,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
         
         it("drawKmlの動作確認(folders)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/folder.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/folder.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -50,7 +50,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
 
         it("drawKmlの動作確認(Properties)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/properties.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/properties.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -59,7 +59,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
 
         it("drawKmlの動作確認(lineString)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/linestring.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/linestring.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -68,7 +68,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
         
         it("drawKmlの動作確認(polygon)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/polygon.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/polygon.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";
@@ -77,7 +77,7 @@ describe("unittest for SvgMapGIS",()=>{
         });
         
         it("drawKmlの動作確認(style)",async ()=>{
-            const str_kml = await fs.readFile("./resources/kml/style.kml", "UTF-8");
+            const str_kml = await fs.readFile("./tests/resources/kml/style.kml", "UTF-8");
             let parser = new DOMParser();
             kml = parser.parseFromString(str_kml, 'text/xml');
             let targetId = "i5";

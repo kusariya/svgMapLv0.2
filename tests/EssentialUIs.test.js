@@ -1,5 +1,5 @@
 import {EssentialUIs} from "../libs/EssentialUIs";
-import {mock_svgmapObj, mock_mapViewerProps} from "../resources/mockParamerters";
+import {mock_svgmapObj, mock_mapViewerProps} from "./resources/mockParamerters";
 import {jest} from "@jest/globals";
 import * as fs from "node:fs/promises";
 
@@ -22,7 +22,7 @@ describe("unittest for EssentialUIs",()=>{
             );
         });
         beforeEach(async ()=>{
-            const html = await fs.readFile("./resources/mock.html", "UTF-8");
+            const html = await fs.readFile("./tests/resources/mock.html", "UTF-8");
             document.body.innerHTML = "";   //DOMの初期化
             document.body.innerHTML = html; //DOMのロード
             

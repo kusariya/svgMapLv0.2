@@ -244,7 +244,7 @@ describe("unittest for UtilFuncs",()=>{
 
         it("get a Symbol",async ()=>{
             const parser = new DOMParser();
-            const xml = await fs.readFile("./resources/svgDoc_singleSymbol.svg", "UTF-8");
+            const xml = await fs.readFile("./tests/resources/svgDoc_singleSymbol.svg", "UTF-8");
             const xmlObj = parser.parseFromString(xml,"text/xml");
             
             let result = UtilFuncs.getSymbols(xmlObj);
@@ -262,7 +262,7 @@ describe("unittest for UtilFuncs",()=>{
 
         it("get Symbols",async ()=>{
             const parser = new DOMParser();
-            const xml = await fs.readFile("./resources/svgDoc_multiSymbols.svg", "UTF-8");
+            const xml = await fs.readFile("./tests/resources/svgDoc_multiSymbols.svg", "UTF-8");
             const xmlObj = parser.parseFromString(xml,"text/xml");
             
             let result = UtilFuncs.getSymbols(xmlObj);
