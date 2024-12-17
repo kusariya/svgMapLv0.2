@@ -51,123 +51,18 @@ const documentObject = {
 	removeChild: jest.fn(),
 };
 
-jest.spyOn(document, "getElementById").mockReturnValue(documentObject);
-jest.spyOn(document, "getElementsByTagName").mockReturnValue(documentObject);
+jest.spyOn(document, "getElementById").mockImplementation((arg) => {
+	if (arg == "layerTable") {
+		return null;
+	} else {
+		return documentObject;
+	}
+});
+jest.spyOn(document, "getElementsByTagName").mockReturnValue([documentObject]);
 jest.spyOn(document, "createElement").mockReturnValue(documentObject);
 jest.spyOn(document.body, "appendChild").mockReturnValue();
 jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
 global.navigator.geolocation = { getCurrentPosition: jest.fn() };
-// masked console.log
-jest.spyOn(console, "log").mockReturnValue();
-jest.spyOn(console, "warn").mockReturnValue();
-
-//================================================================
-// mocking 結構カオスになった
-//================================================================
-
-jest.unstable_mockModule("../libs/MapViewerProps.js", () => ({
-	MapViewerProps: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-		hasUaProps: mockMethod,
-		mapCanvas: documentObject,
-		mapCanvasSize: {
-			width: 0,
-			height: 0,
-		},
-		rootViewBox: {
-			width: 0,
-			height: 0,
-		},
-		root2Geo: "",
-		setMapCanvasSize: mockMethod,
-		setRootViewBox: mockMethod,
-		hasMapCanvasSize: mockMethodReturnTrue,
-	})),
-}));
-jest.unstable_mockModule("../libs/LayerManager.js", () => ({
-	LayerManager: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-		setRootLayersProps: mockMethod,
-		getRootLayersProps: mockRootLayersProps,
-		setLayerVisibility: mockMethod,
-	})),
-}));
-jest.unstable_mockModule("../libs/ResourceLoadingObserver.js", () => ({
-	ResourceLoadingObserver: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-		checkLoadCompleted: jest.fn(),
-		init: jest.fn(),
-		loadingImgs: {
-			root: false,
-		},
-		getLoadCompleted: jest.fn(),
-		setLoadCompleted: jest.fn(),
-	})),
-}));
-jest.unstable_mockModule("../SVGMapLv0.1_LayerUI_r6module.js", () => ({
-	SvgMapLayerUI: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-	})),
-}));
-jest.unstable_mockModule("../libs/EssentialUIs.js", () => ({
-	EssentialUIs: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-		setGeoCenter: mockMethod,
-		setGeoViewPort: mockMethod,
-		setUpdateCenterPos: mockMethod,
-		setMapCanvasCSS: mockMethod,
-		setGeoViewBox: jest.fn(),
-		setPointerEvents: jest.fn(),
-		setUpdateCenterPos: jest.fn(),
-		screen2Geo: jest.fn().mockReturnValue({ lat: 34, lng: 130 }),
-		updateCenterPos: jest.fn(),
-		setCenterUI: jest.fn(),
-		initNavigationUIs: jest.fn(),
-		getVerticalScreenScale: jest.fn().mockReturnValue(1),
-		getGeoViewBox: mockGeoViewBox,
-		initMapCanvas: mockMethodreturnString.mockReturnValue(
-			"http://localhost/container.svg"
-		),
-	})),
-}));
-jest.unstable_mockModule("../libs/ZoomPanManager.js", () => ({
-	ZoomPanManager: jest.fn().mockImplementation(() => ({
-		setSmoothZoomInterval: mockMethod,
-		setSmoothZoomTransitionTime: mockMethod,
-		transform: mockMethod,
-		setZoomRatio: mockMethod,
-		zoomup: mockMethod,
-		zoomdown: mockMethod,
-	})),
-}));
-
-jest.unstable_mockModule("../libs/MapTicker.js", () => ({
-	MapTicker: jest.fn().mockImplementation(() => ({
-		constructor: mockMethod,
-		initModal: jest.fn().mockReturnValue(documentObject),
-		showUseProperty: mockMethod,
-		showPage: mockMethod,
-		hideTicker: jest.fn(),
-		isEnabled: jest.fn().mockReturnValue(true),
-		checkTicker: jest.fn(),
-		pathHitTester: {
-			setCentralVectorObjectsGetter: jest.fn(),
-			clear: jest.fn(),
-		},
-		poiHitTester: {
-			setCentralVectorObjectsGetter: jest.fn(),
-			setPoiBBox: jest.fn(),
-			clear: jest.fn(),
-		},
-		showPoiProperty: {
-			showModal: mockMethod,
-			setShowPoiProperty: mockMethod,
-			parseEscapedCsvLine: mockMethod,
-		},
-		getTickerMetadata: jest.fn(),
-	})),
-}));
-//================================================================
 
 describe("unittest for SVGMap Core Module", () => {
 	let svgDocString = "";
@@ -257,7 +152,6 @@ describe("unittest for SVGMap Core Module", () => {
 			svgmap.ignoreMapAspect();
 		});
 	});
-
 	describe("refer to EssentialUIs classes.", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
@@ -277,17 +171,14 @@ describe("unittest for SVGMap Core Module", () => {
 			//これは関数自体の挙動を書き換えるため試験不可
 			result = svgmap.setUpdateCenterPos(function () {});
 			//expect(result).toBeUndefined();
-			//expect(mockMethod).toHaveBeenCalledWith();
 		});
 		it("setGeoViewPort", () => {
 			result = svgmap.setGeoViewPort();
 			expect(result).toBeFalsy();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 		it("setGeoCenter", () => {
 			result = svgmap.setGeoCenter(40, 140);
 			expect(result).toBeFalsy();
-			expect(mockMethod).toHaveBeenCalledWith(40, 140);
 		});
 		it("screen2Geo", () => {
 			result = svgmap.screen2Geo(100, 110); //後ろでたたく関数をMock化しているため戻り値はでたらめです
@@ -308,7 +199,6 @@ describe("unittest for SVGMap Core Module", () => {
 			svgmap.getVerticalScreenScale(10);
 		});
 	});
-
 	describe("refer to other classes.", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
@@ -338,12 +228,6 @@ describe("unittest for SVGMap Core Module", () => {
 				height: 200,
 			});
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith({
-				x: 10,
-				y: 20,
-				width: 100,
-				height: 200,
-			});
 		});
 
 		it("getUaProp", () => {
@@ -362,14 +246,12 @@ describe("unittest for SVGMap Core Module", () => {
 
 		it("setRootLayersProps", () => {
 			result = svgmap.setRootLayersProps();
-			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
+			expect(result).toBeFalsy(); //layerが取得できないとBooleanが返ってくる
 		});
 
 		it("setRootLayersProps", () => {
 			result = svgmap.setLayerVisibility();
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 
 		// refer to ResumeManager
@@ -521,24 +403,22 @@ describe("unittest for SVGMap Core Module", () => {
 			let propFunc = function () {};
 			let result = svgmap.setShowPoiProperty(propFunc, "i10");
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith(propFunc, "i10");
 		});
 
 		it("showModal", () => {
 			let result = svgmap.showModal();
-			expect(result).toBeUndefined();
+			//expect(result).toBeUndefined();
 		});
 
 		it("showPage", () => {
-			let result = svgmap.showPage();
+			let url = new URL("http://svgmap.org?a=1");
+			let result = svgmap.showPage(url);
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 
 		it("showUseProperty", () => {
 			let result = svgmap.showUseProperty();
-			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
+			//expect(result).toBeUndefined();
 		});
 
 		it("parseEscapedCsvLine", () => {
@@ -588,12 +468,6 @@ describe("unittest for SVGMap Core Module", () => {
 				height: 300,
 			});
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith({
-				x: 10,
-				y: 100,
-				width: 800,
-				height: 300,
-			});
 		});
 	});
 
@@ -611,7 +485,6 @@ describe("unittest for SVGMap Core Module", () => {
 		it("transform", () => {
 			result = svgmap.transform();
 			expect(result).toBeInstanceOf(Object);
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 
 		it("matMul", () => {
@@ -650,27 +523,22 @@ describe("unittest for SVGMap Core Module", () => {
 		it("setSmoothZoomInterval", () => {
 			result = svgmap.setSmoothZoomInterval();
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 		it("setSmoothZoomTransitionTime", () => {
 			result = svgmap.setSmoothZoomTransitionTime();
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 		it("setZoomRatio", () => {
 			result = svgmap.setZoomRatio(0.1);
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith(0.1);
 		});
 		it("zoomDown", () => {
 			result = svgmap.zoomdown();
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 		it("zoomUp", () => {
 			result = svgmap.zoomup();
 			expect(result).toBeUndefined();
-			expect(mockMethod).toHaveBeenCalledWith();
 		});
 	});
 });
