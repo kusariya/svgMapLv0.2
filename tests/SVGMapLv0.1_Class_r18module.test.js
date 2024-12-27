@@ -2,6 +2,11 @@ import { beforeAll, it, jest } from "@jest/globals";
 import * as fs from "node:fs/promises";
 import { GenericMatrix } from "../libs/TransformLib";
 
+/*
+  Note:
+	jsdomの設定でウインドウサイズは1024x768になっています
+*/
+
 // query utilities:
 import {
 	getByLabelText,
@@ -211,8 +216,8 @@ describe("unittest for SVGMap Core Module", () => {
 			svgmap.registLayerUiSetter(jest.fn(), jest.fn());
 		});
 		it("getVerticalScreenScale", () => {
-			// 確認観点はエラーが出力されないことのみ
-			svgmap.getVerticalScreenScale(10);
+			let result = svgmap.getVerticalScreenScale(37);
+			expect(result).toBeCloseTo(60, 0); // 大体あっていることを確認する
 		});
 	});
 	describe("refer to other classes.", () => {
@@ -427,7 +432,7 @@ describe("unittest for SVGMap Core Module", () => {
 		it("showPage", () => {
 			let url = new URL("http://svgmap.org?a=1");
 			let result = svgmap.showPage(url);
-			expect(result).toBeUndefined();
+			expect(result).toBe("");
 		});
 
 		/**
