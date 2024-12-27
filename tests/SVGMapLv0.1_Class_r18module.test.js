@@ -1,4 +1,4 @@
-import { it, jest } from "@jest/globals";
+import { beforeAll, it, jest } from "@jest/globals";
 import * as fs from "node:fs/promises";
 import { GenericMatrix } from "../libs/TransformLib";
 
@@ -51,6 +51,19 @@ const documentObject = {
 	removeChild: jest.fn(),
 };
 
+/*
+// 本当は以下のように記述したいが、jestの仕様でエラーとなるため断念
+jest.unstable_mockModule("../libs/EssentialUIs", async () => {
+	const {EssentialUIs} = await import("../libs/EssentialUIs");
+	return {
+		EssentialUIs: 
+		    ...EssentialUIs,
+			... // 必要な関数をMock
+		}),
+	};
+});
+*/
+
 jest.spyOn(document, "getElementById").mockImplementation((arg) => {
 	if (arg == "layerTable") {
 		return null;
@@ -65,6 +78,11 @@ jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
 global.navigator.geolocation = { getCurrentPosition: jest.fn() };
 
 describe("unittest for SVGMap Core Module", () => {
+	let SvgMap;
+	beforeAll(async () => {
+		const local_SvgMap = await import("../SVGMapLv0.1_Class_r18module");
+		SvgMap = local_SvgMap.SvgMap;
+	});
 	let svgDocString = "";
 	beforeEach(async () => {
 		// XHRで取得するデータを設定
@@ -88,7 +106,6 @@ describe("unittest for SVGMap Core Module", () => {
 	describe("refer to own classes.", () => {
 		let svgmap, result, element, svgDoc;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
@@ -156,7 +173,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
@@ -203,7 +219,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
@@ -392,7 +407,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 		});
@@ -441,7 +455,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
@@ -458,7 +471,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
@@ -479,7 +491,6 @@ describe("unittest for SVGMap Core Module", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element;
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 		});
@@ -519,7 +530,6 @@ describe("unittest for SVGMap Core Module", () => {
 			mockMethod.mockClear();
 		});
 		beforeEach(async () => {
-			const { SvgMap } = await import("../SVGMapLv0.1_Class_r18module");
 			svgmap = new SvgMap();
 			svgmap.initLoad();
 			mockMethod.mockClear();
