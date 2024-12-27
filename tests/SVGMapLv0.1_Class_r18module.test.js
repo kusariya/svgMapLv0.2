@@ -19,7 +19,24 @@ import {
 } from "@testing-library/dom";
 
 //================================================================
-// mocking 結構カオスになりそう
+//XHRのモック化
+const svgDocString = await fs.readFile(
+	"./tests/resources/svgDoc_singleSymbol.svg",
+	"UTF-8"
+);
+const xhrMock = {
+	open: jest.fn(),
+	send: jest.fn().mockImplementation(() => {
+		xhrMock.onreadystatechange();
+	}),
+	onreadystatechange: jest.fn(),
+	setRequestHeader: jest.fn(),
+	readyState: 4,
+	status: 200,
+	responseText: svgDocString,
+};
+jest.spyOn(window, "XMLHttpRequest").mockImplementation(() => xhrMock);
+
 //================================================================
 const mockMethod = jest.fn();
 const mockMethodReturnTrue = jest.fn().mockReturnValue(true);
@@ -55,20 +72,6 @@ const documentObject = {
 	appendChild: jest.fn(),
 	removeChild: jest.fn(),
 };
-
-/*
-// 本当は以下のように記述したいが、jestの仕様でエラーとなるため断念
-jest.unstable_mockModule("../libs/EssentialUIs", async () => {
-	const {EssentialUIs} = await import("../libs/EssentialUIs");
-	return {
-		EssentialUIs: 
-		    ...EssentialUIs,
-			... // 必要な関数をMock
-		}),
-	};
-});
-*/
-
 jest.spyOn(document, "getElementById").mockImplementation((arg) => {
 	if (arg == "layerTable") {
 		return null;
@@ -80,6 +83,9 @@ jest.spyOn(document, "getElementsByTagName").mockReturnValue([documentObject]);
 jest.spyOn(document, "createElement").mockReturnValue(documentObject);
 jest.spyOn(document.body, "appendChild").mockReturnValue();
 jest.spyOn(document.documentElement, "appendChild").mockReturnValue();
+
+const mock_window_open = jest.fn();
+jest.spyOn(window, "open").mockImplementation(mock_window_open);
 global.navigator.geolocation = { getCurrentPosition: jest.fn() };
 
 describe("unittest for SVGMap Core Module", () => {
@@ -88,27 +94,10 @@ describe("unittest for SVGMap Core Module", () => {
 		const local_SvgMap = await import("../SVGMapLv0.1_Class_r18module");
 		SvgMap = local_SvgMap.SvgMap;
 	});
-	let svgDocString = "";
 	beforeEach(async () => {
 		// XHRで取得するデータを設定
-		svgDocString = await fs.readFile(
-			"./tests/resources/svgDoc_singleSymbol.svg",
-			"UTF-8"
-		);
-		const xhrMock = {
-			open: jest.fn(),
-			send: jest.fn().mockImplementation(() => {
-				xhrMock.onreadystatechange();
-			}),
-			onreadystatechange: jest.fn(),
-			setRequestHeader: jest.fn(),
-			readyState: 4,
-			status: 200,
-			responseText: svgDocString,
-		};
-		jest.spyOn(window, "XMLHttpRequest").mockImplementation(() => xhrMock);
 	});
-	describe("refer to own classes.", () => {
+	describe("test for function.", () => {
 		let svgmap, result, element, svgDoc;
 		beforeEach(async () => {
 			svgmap = new SvgMap();
@@ -173,18 +162,6 @@ describe("unittest for SVGMap Core Module", () => {
 			// 確認観点はエラーが出力されないことのみ
 			svgmap.ignoreMapAspect();
 		});
-	});
-	describe("refer to EssentialUIs classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-			mockMethod.mockClear();
-		});
-		afterEach(() => {
-			mockMethod.mockClear();
-		});
 		it("setMapCanvasCSS", () => {
 			result = svgmap.setMapCanvasCSS({ style: {} });
 		});
@@ -209,6 +186,7 @@ describe("unittest for SVGMap Core Module", () => {
 			});
 		});
 		it("reLoadLayer", () => {
+			// カバレッジを増やすためだけの試験
 			svgmap.reLoadLayer();
 		});
 		it("registLayerUiSetter.", () => {
@@ -218,19 +196,6 @@ describe("unittest for SVGMap Core Module", () => {
 		it("getVerticalScreenScale", () => {
 			let result = svgmap.getVerticalScreenScale(37);
 			expect(result).toBeCloseTo(60, 0); // 大体あっていることを確認する
-		});
-	});
-	describe("refer to other classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-			mockMethod.mockClear();
-		});
-
-		afterEach(() => {
-			mockMethod.mockClear();
 		});
 
 		// refer to MapviewerProps
@@ -279,33 +244,6 @@ describe("unittest for SVGMap Core Module", () => {
 
 		it("setResume", () => {
 			svgmap.setResume(true);
-		});
-
-		it("resumeToggle(toggle off->on)", async () => {
-			document.body.innerHTML =
-				"<div>" +
-				'  <input type="checkbox" data-testid="button" onclick="" />' +
-				"</div>";
-			let button = getByTestId(document.body, "button");
-			button.addEventListener("click", (e) => {
-				svgmap.resumeToggle(e);
-			});
-
-			result = await button.click();
-			expect(svgmap.getResume()).toBeTruthy();
-		});
-		it("resumeToggle(toggle on->off)", () => {
-			document.body.innerHTML =
-				"<div>" +
-				'  <input type="checkbox" data-testid="button" checked=true onclick="" />' +
-				"</div>";
-			let button = getByTestId(document.body, "button");
-			button.addEventListener("click", (e) => {
-				svgmap.resumeToggle(e);
-			});
-
-			button.click();
-			expect(svgmap.getResume()).toBeFalsy();
 		});
 
 		// refer to ProxyManager
@@ -406,18 +344,6 @@ describe("unittest for SVGMap Core Module", () => {
 			result = svgmap.gps();
 			expect(result).toBe();
 		});
-	});
-
-	describe("refer to MapTicker classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-		});
-		afterEach(() => {
-			mockMethod.mockClear();
-		});
 		it("setShowPoiProperty", () => {
 			let propFunc = function () {};
 			let result = svgmap.setShowPoiProperty(propFunc, "i10");
@@ -454,32 +380,6 @@ describe("unittest for SVGMap Core Module", () => {
 			// 単体試験は./MapTicker.test.jsで行う
 			result = svgmap.getTickerMetadata();
 		});
-	});
-
-	describe("refer to SVGMapLv0.1_LayerUI_r6module classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-			mockMethod.mockClear();
-		});
-		afterEach(() => {
-			mockMethod.mockClear();
-		});
-		it("", () => {
-			console.log();
-		});
-	});
-
-	describe("refer to MapviewerProps classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-			mockMethod.mockClear();
-		});
 
 		it("setRootViewBox", () => {
 			result = svgmap.setRootViewBox({
@@ -489,18 +389,6 @@ describe("unittest for SVGMap Core Module", () => {
 				height: 300,
 			});
 			expect(result).toBeUndefined();
-		});
-	});
-
-	describe("refer to transformlib classes.", () => {
-		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
-		let svgmap, result, element;
-		beforeEach(async () => {
-			svgmap = new SvgMap();
-			svgmap.initLoad();
-		});
-		afterEach(() => {
-			mockMethod.mockClear();
 		});
 		it("transform", () => {
 			result = svgmap.transform();
@@ -528,7 +416,7 @@ describe("unittest for SVGMap Core Module", () => {
 		});
 	});
 
-	describe("refer to zoompanmanager classes.", () => {
+	describe("test for UI.", () => {
 		// 当ブロックはエラーがないこととCoverage計算の簡略化を目的に記載しています
 		let svgmap, result, element, mock;
 		afterEach(() => {
@@ -539,6 +427,34 @@ describe("unittest for SVGMap Core Module", () => {
 			svgmap.initLoad();
 			mockMethod.mockClear();
 		});
+
+		it("resumeToggle(toggle off->on)", async () => {
+			document.body.innerHTML =
+				"<div>" +
+				'  <input type="checkbox" data-testid="button" onclick="" />' +
+				"</div>";
+			let button = getByTestId(document.body, "button");
+			button.addEventListener("click", (e) => {
+				svgmap.resumeToggle(e);
+			});
+
+			result = await button.click();
+			expect(svgmap.getResume()).toBeTruthy();
+		});
+		it("resumeToggle(toggle on->off)", () => {
+			document.body.innerHTML =
+				"<div>" +
+				'  <input type="checkbox" data-testid="button" checked=true onclick="" />' +
+				"</div>";
+			let button = getByTestId(document.body, "button");
+			button.addEventListener("click", (e) => {
+				svgmap.resumeToggle(e);
+			});
+
+			button.click();
+			expect(svgmap.getResume()).toBeFalsy();
+		});
+
 		it("setSmoothZoomInterval", () => {
 			result = svgmap.setSmoothZoomInterval();
 			expect(result).toBeUndefined();
