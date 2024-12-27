@@ -416,9 +416,13 @@ describe("unittest for SVGMap Core Module", () => {
 			expect(result).toBeUndefined();
 		});
 
-		it("showUseProperty", () => {
-			let result = svgmap.showUseProperty();
-			//expect(result).toBeUndefined();
+		/**
+		 * 以下の関数はownerDocumentが設定されないため、試験不可
+		 * Playwrightで試験するなど別の方法を検討する必要がある
+		 */
+		it.skip("showUseProperty", () => {
+			let result = svgmap.showUseProperty(svgElem);
+			expect(result).toBeUndefined();
 		});
 
 		it("parseEscapedCsvLine", () => {
