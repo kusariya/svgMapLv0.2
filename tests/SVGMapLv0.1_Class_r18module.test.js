@@ -358,7 +358,8 @@ describe("unittest for SVGMap Core Module", () => {
 		it("showPage", () => {
 			let url = new URL("http://svgmap.org?a=1");
 			let result = svgmap.showPage(url);
-			expect(result).toBe("");
+			expect(mock_window_open).toHaveBeenCalledTimes(1);
+			expect(mock_window_open).toHaveBeenCalledWith(url.href, "_self", "");
 		});
 
 		/**
