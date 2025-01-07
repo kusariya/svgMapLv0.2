@@ -2374,6 +2374,12 @@ class SvgMap {
 		return this.#loadErrorStatistics;
 	}
 
+	/**
+	 * 指定されたHTML画像要素に対応するSVG要素を取得します。
+	 *
+	 * @param {HTMLImageElement} htmlImg HTML画像要素
+	 * @returns {Object} 対応するSVG要素とドキュメントIDを含むオブジェクト
+	 */
 	// html文書中のimg要素(POI)を入力すると、対応するSVG文書の文書番号とその要素(use)が出力される。対応するuse要素を持つsvg文書事態を取得したい場合は.ownerDocumentする。
 	// idからhtml文書のimg要素を取得するには、Document.gelElementById(id)
 	#getSvgTarget(htmlImg) {
@@ -2690,21 +2696,54 @@ class SvgMap {
 	getRootViewBox() {
 		return this.#mapViewerProps.rootViewBox;
 	}
+	/**
+	 * レイヤーIDをキーとしたレイヤーのリストを取得します。
+	 *
+	 * @returns {Object} svgオブジェクト
+	 */
 	getSvgImages() {
 		return this.#svgImages;
 	}
+	/**
+	 * レイヤーIDをキーとしたレイヤーのプロパティオブジェクトを取得します。
+	 *
+	 * @returns {Object} プロパティオブジェクト
+	 */
 	getSvgImagesProps() {
 		return this.#svgImagesProps;
 	}
+	/**
+	 * SVGMapの個別UI(LayerSpecificUI)を取得します。
+	 *
+	 * @returns {SvgMapLayerUI} SVGマップのレイヤーUIオブジェクト
+	 */
 	getSvgMapLayerUI() {
 		return this.#svgMapLayerUI;
 	}
+	/**
+	 * 指定されたHTML画像要素に対応するSVG要素を取得します。
+	 *
+	 * @param {HTMLImageElement} htmlImg HTML画像要素
+	 * @returns {Object} 対応するSVG要素とドキュメントIDを含むオブジェクト
+	 */
 	getSvgTarget(...params) {
 		return this.#getSvgTarget(...params);
 	}
+	/**
+	 * 指定されたレイヤーIDに対応するSWレイヤーを取得します。
+	 *
+	 * @param {string} cat レイヤーに付与されたクラス名
+	 * @returns {Array} 引数のクラス名が設定されたレイヤーリスト
+	 */
 	getSwLayers(...params) {
 		return this.#layerManager.getSwLayers(...params);
 	}
+	/**
+	 * 指定されたSVGドキュメントからシンボルを取得します。
+	 *
+	 * @param {Document} svgDoc SVGドキュメント
+	 * @returns {Array} シンボルオブジェクト
+	 */
 	getSymbols(...params) {
 		return UtilFuncs.getSymbols(...params);
 	}
