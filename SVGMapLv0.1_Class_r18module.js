@@ -2681,18 +2681,43 @@ class SvgMap {
 	getPoiPos(...params) {
 		return UtilFuncs.getNonScalingOffset(...params);
 	}
+	/**
+	 *
+	 * @description 描画中のレイヤーを一時保存する関数
+	 * @returns {Boolean} 描画中のレイヤーを一時保存する場合はtrue
+	 */
 	getResume() {
 		return this.#resumeManager.getResume();
 	}
+	/**
+	 * @description  コンテナsvgに設定されているCRSの逆変換行列( svg座標から地理座標へ変換する行列 )を取得
+	 * @returns
+	 */
 	getRoot2Geo() {
 		return this.#mapViewerProps.root2Geo;
 	}
+	/**
+	 *
+	 * @description rootに設定されているCRS(Coordinate Reference System)を取得する関数
+	 * @returns {Mercator|Object} Objectの場合はa,b,c,d,e,f,isSVG属性を持つオブジェクト
+	 *    TODO: 一本化するのが正しいのでは？
+	 */
 	getRootCrs() {
 		return this.#mapViewerProps.rootCrs;
 	}
+	/**
+	 *
+	 * @param  {undefined} params - 不要 TODO:削除すること
+	 * @returns {Object} 登録されているレイヤーの一覧(Container.svgと同義)
+	 */
 	getRootLayersProps(...params) {
 		return this.#layerManager.getRootLayersProps(...params);
 	}
+	/**
+	 *
+	 * @description rootのViewBoxを取得する関数
+	 * @returns {Object} x,y,width,heightの属性を持つオブジェクト
+	 */
 	getRootViewBox() {
 		return this.#mapViewerProps.rootViewBox;
 	}

@@ -415,6 +415,31 @@ describe("unittest for SVGMap Core Module", () => {
 				height: 3200,
 			}); //MEMO: 手計算してないのであっているかは不明
 		});
+		it("getRootCrs", () => {
+			// ISSUE: ブラウザをたたくとMercatorオブジェクトが格納されているケースがある
+			// 網羅的にテストできてない
+			result = svgmap.getRootCrs();
+			expect(result).toBeInstanceOf(Object);
+			expect(result).toHaveProperty("a");
+			expect(result).toHaveProperty("b");
+			expect(result).toHaveProperty("c");
+			expect(result).toHaveProperty("d");
+			expect(result).toHaveProperty("e");
+			expect(result).toHaveProperty("f");
+			expect(result).toHaveProperty("isSVG2");
+		});
+		it("getRoot2Geo", () => {
+			// ISSUE: ブラウザをたたくと{scale: 360, transform: ƒ, inverse: ƒ}というケースがある
+			// 網羅的にテストできてない
+			result = svgmap.getRoot2Geo();
+			expect(result).toBeInstanceOf(Object);
+			expect(result).toHaveProperty("a");
+			expect(result).toHaveProperty("b");
+			expect(result).toHaveProperty("c");
+			expect(result).toHaveProperty("d");
+			expect(result).toHaveProperty("e");
+			expect(result).toHaveProperty("f");
+		});
 	});
 
 	describe("test for UI.", () => {
