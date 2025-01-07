@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { SvgImageProps } from "../libs/SvgImageProps";
+import { SvgImageProps } from "../../libs/SvgImageProps";
 
 describe("SvgImageProps", () => {
 	let svgImageProps;

@@ -1,4 +1,4 @@
-import { PathHitTester } from "../libs/PathHitTester";
+import { PathHitTester } from "../../libs/PathHitTester";
 import { jest } from "@jest/globals";
 
 describe("target PathHitTest class", () => {
@@ -14,11 +14,9 @@ describe("target PathHitTest class", () => {
 				.fn()
 				.mockReturnValue({ width: 300, height: 800 });
 			mock_isEditingGraphicsElement = jest.fn().mockReturnValue(null);
-			mock_refreshScreen = jest
-				.fn()
-				.mockReturnValue({
-					isEditingGraphicsElement: mock_isEditingGraphicsElement,
-				});
+			mock_refreshScreen = jest.fn().mockReturnValue({
+				isEditingGraphicsElement: mock_isEditingGraphicsElement,
+			});
 			// 本当はsvgmapObjクラスをモック化する方がよいのだがないため、手動で作成
 			mock_SvgmapObj = {
 				getMapCanvasSize: mock_getMapCansasSize,

@@ -1,6 +1,6 @@
 import { beforeAll, it, jest } from "@jest/globals";
 import * as fs from "node:fs/promises";
-import { GenericMatrix } from "../libs/TransformLib";
+import { GenericMatrix } from "../../libs/TransformLib";
 
 /*
   Note:
@@ -21,7 +21,7 @@ import {
 //================================================================
 //XHRのモック化
 const svgDocString = await fs.readFile(
-	"./tests/resources/svgDoc_singleSymbol.svg",
+	"./tests/unittest/resources/svgDoc_singleSymbol.svg",
 	"UTF-8"
 );
 const xhrMock = {
@@ -91,7 +91,7 @@ global.navigator.geolocation = { getCurrentPosition: jest.fn() };
 describe("unittest for SVGMap Core Module", () => {
 	let SvgMap;
 	beforeAll(async () => {
-		const local_SvgMap = await import("../SVGMapLv0.1_Class_r18module");
+		const local_SvgMap = await import("../../SVGMapLv0.1_Class_r18module");
 		SvgMap = local_SvgMap.SvgMap;
 	});
 	beforeEach(async () => {

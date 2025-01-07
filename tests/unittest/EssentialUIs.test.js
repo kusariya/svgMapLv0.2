@@ -1,4 +1,4 @@
-import { EssentialUIs } from "../libs/EssentialUIs";
+import { EssentialUIs } from "../../libs/EssentialUIs";
 import {
 	mock_svgmapObj,
 	mock_mapViewerProps,
@@ -25,7 +25,10 @@ describe("unittest for EssentialUIs", () => {
 			);
 		});
 		beforeEach(async () => {
-			const html = await fs.readFile("./tests/resources/mock.html", "UTF-8");
+			const html = await fs.readFile(
+				"./tests/unittest/resources/mock.html",
+				"UTF-8"
+			);
 			document.body.innerHTML = ""; //DOMの初期化
 			document.body.innerHTML = html; //DOMのロード
 

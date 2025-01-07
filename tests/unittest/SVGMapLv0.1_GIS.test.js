@@ -1,4 +1,4 @@
-import { SvgMapGIS } from "../SVGMapLv0.1_GIS_r4_module";
+import { SvgMapGIS } from "../../SVGMapLv0.1_GIS_r4_module";
 import { mock_svgmapObj } from "./resources/mockParamerters";
 import { expect, jest } from "@jest/globals";
 
@@ -27,7 +27,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(Points)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/point.kml",
+				"./tests/unittest/resources/kml/point.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -38,7 +38,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(documents)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/document.kml",
+				"./tests/unittest/resources/kml/document.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -49,7 +49,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(folders)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/folder.kml",
+				"./tests/unittest/resources/kml/folder.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -60,7 +60,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(Properties)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/properties.kml",
+				"./tests/unittest/resources/kml/properties.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -72,7 +72,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(lineString)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/linestring.kml",
+				"./tests/unittest/resources/kml/linestring.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -84,7 +84,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(polygon)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/polygon.kml",
+				"./tests/unittest/resources/kml/polygon.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();
@@ -96,7 +96,7 @@ describe("unittest for SvgMapGIS", () => {
 
 		it("drawKmlの動作確認(style)", async () => {
 			const str_kml = await fs.readFile(
-				"./tests/resources/kml/style.kml",
+				"./tests/unittest/resources/kml/style.kml",
 				"UTF-8"
 			);
 			let parser = new DOMParser();

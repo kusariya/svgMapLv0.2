@@ -1,5 +1,8 @@
-import { GeometryCapture, SVGMapGISgeometry } from "../libs/GeometryCapture";
-import { SvgMapElementType } from "../libs/SvgMapElementType.js";
+import {
+	GeometryCapture,
+	SVGMapGISgeometry,
+} from "../../libs/GeometryCapture.js";
+import { SvgMapElementType } from "../../libs/SvgMapElementType.js";
 import { jest } from "@jest/globals";
 
 const GeometryPatterns = [

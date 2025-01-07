@@ -1,4 +1,4 @@
-import { GPS } from "../libs/GPS";
+import { GPS } from "../../libs/GPS";
 import { jest } from "@jest/globals";
 
 const userAgentPatterns = [

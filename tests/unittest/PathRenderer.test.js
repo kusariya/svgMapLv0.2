@@ -1,6 +1,6 @@
-import { PathRenderer } from "../libs/PathRenderer";
+import { PathRenderer } from "../../libs/PathRenderer.js";
 import { jest } from "@jest/globals";
-import { SvgMapElementType } from "../libs/SvgMapElementType.js";
+import { SvgMapElementType } from "../../libs/SvgMapElementType.js";
 
 const flagPatterns = [
 	{

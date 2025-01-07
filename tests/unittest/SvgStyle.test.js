@@ -1,4 +1,4 @@
-import { SvgStyle } from "../libs/SvgStyle";
+import { SvgStyle } from "../../libs/SvgStyle";
 import { jest } from "@jest/globals";
 
 const testParamerters = [

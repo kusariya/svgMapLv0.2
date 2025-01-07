@@ -32,12 +32,12 @@
 		"verbose": false,
 		"testEnvironment": "jsdom",
 		"testMatch": [
-			"<rootDir>/tests/*.test.js",
-			"<rootDir>/tests/**/*.test.js"
+			"<rootDir>/tests/unittest/*.test.js",
+			"<rootDir>/tests/unittest/**.test.js"
 		],
 		"testPathIgnorePatterns": [
 			"<rootDir>/node_modules/",
-			"<rootDir>/e2e/"
+			"<rootDir>/tests/e2e/"
 		]
 	}
 }

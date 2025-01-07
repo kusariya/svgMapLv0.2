@@ -1,4 +1,4 @@
-import { ResumeManager } from "../libs/ResumeManager";
+import { ResumeManager } from "../../libs/ResumeManager";
 import { jest } from "@jest/globals";
 
 const urlPatterns = [
@@ -61,13 +61,11 @@ describe("target ResumeManager.", () => {
 			);
 		});
 		beforeEach(() => {
-			mock_location = jest
-				.spyOn(global, "location", "get")
-				.mockReturnValue({
-					href: "http://kondokoso.com",
-					pathname: "/main.svg",
-					origin: "http://hontohakotti.com",
-				});
+			mock_location = jest.spyOn(global, "location", "get").mockReturnValue({
+				href: "http://kondokoso.com",
+				pathname: "/main.svg",
+				origin: "http://hontohakotti.com",
+			});
 		});
 		afterEach(() => {
 			if (mock_location != null) {

@@ -1,4 +1,4 @@
-import { MapTicker } from "../libs/MapTicker";
+import { MapTicker } from "../../libs/MapTicker";
 import { mock_svgmapObj } from "./resources/mockParamerters";
 import { jest } from "@jest/globals";
 

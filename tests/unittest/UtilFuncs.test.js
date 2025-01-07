@@ -1,5 +1,5 @@
-import { UtilFuncs } from "../libs/UtilFuncs";
-import { SvgMapElementType } from "../libs/SvgMapElementType";
+import { UtilFuncs } from "../../libs/UtilFuncs";
+import { SvgMapElementType } from "../../libs/SvgMapElementType";
 import { expect, jest } from "@jest/globals";
 import * as fs from "node:fs/promises";
 
@@ -331,7 +331,7 @@ describe("unittest for UtilFuncs", () => {
 		it("get a Symbol", async () => {
 			const parser = new DOMParser();
 			const xml = await fs.readFile(
-				"./tests/resources/svgDoc_singleSymbol.svg",
+				"./tests/unittest/resources/svgDoc_singleSymbol.svg",
 				"UTF-8"
 			);
 			const xmlObj = parser.parseFromString(xml, "text/xml");
@@ -352,7 +352,7 @@ describe("unittest for UtilFuncs", () => {
 		it("get Symbols", async () => {
 			const parser = new DOMParser();
 			const xml = await fs.readFile(
-				"./tests/resources/svgDoc_multiSymbols.svg",
+				"./tests/unittest/resources/svgDoc_multiSymbols.svg",
 				"UTF-8"
 			);
 			const xmlObj = parser.parseFromString(xml, "text/xml");
