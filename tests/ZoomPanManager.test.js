@@ -2,7 +2,7 @@ import { ZoomPanManager } from "../libs/ZoomPanManager";
 import { jest } from "@jest/globals";
 import * as fs from "node:fs/promises";
 
-const basePath = "./resources/zoompanmanager/";
+const basePath = "./tests/resources/zoompanmanager/";
 const devices = [
 	{
 		// SmartPhone
