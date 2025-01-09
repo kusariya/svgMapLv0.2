@@ -1026,6 +1026,19 @@ class SvgMap {
 		}
 	}
 
+	/**
+	 * Container.svgを解析し、リストを作成する関数。
+	 *
+	 * @param {SVGElement} svgElem 解析するSVG要素
+	 * @param {String} docId ドキュメントID
+	 * @param {HTMLElement} parentElem 親HTML要素
+	 * @param {Boolean} eraseAll すべての要素を消去するかどうか
+	 * @param {Object} symbols シンボルの配列
+	 * @param {Object} inCanvas キャンバス情報
+	 * @param {Object} pStyle 親要素のスタイル
+	 * @param {Boolean} dontChildResLoading 子リソースの読み込みを行わないかどうか
+	 * @returns {HTMLElement} 解析された最後の要素
+	 */
 	#parseSVG(
 		svgElem,
 		docId,
@@ -2678,6 +2691,11 @@ class SvgMap {
 		return ( eval ( oname ) );
 	},
 	**/
+	/**
+	 *
+	 * @param  {...any} params
+	 * @returns
+	 */
 	getPoiPos(...params) {
 		return UtilFuncs.getNonScalingOffset(...params);
 	}
