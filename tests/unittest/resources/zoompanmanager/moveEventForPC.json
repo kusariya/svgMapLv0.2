@@ -1,8 +1,7 @@
 {
 	"bubbles": true,
 	"button": 0,
-	"buttons": 0,
-	"clientX": 100,
+	"clientX": 300,
 	"clientY": 200,
 	"pointerType": "mouse",
 	"type": "click"

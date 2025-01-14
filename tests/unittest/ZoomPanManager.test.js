@@ -1,6 +1,9 @@
 import { ZoomPanManager } from "../../libs/ZoomPanManager";
 import { expect, jest } from "@jest/globals";
-import { mock_svgmapObj } from "./resources/mockParamerters";
+import {
+	mock_svgmapObj,
+	mock_mapViewerProps,
+} from "./resources/mockParamerters";
 import * as fs from "node:fs/promises";
 import { beforeEach } from "node:test";
 
@@ -29,11 +32,13 @@ const devices = [
 		smartPhone: false,
 		clickEvent: {
 			eventFile: "clickEventForPC.json",
-			correct: { x: 48, y: 648 },
+			correct: { x: 100, y: 200 },
 		},
 		dragEvent: {
-			eventFile: "dragEventForPC.json",
-			correct: { x: 48, y: 648 },
+			downEventFile: "downEventForPC.json",
+			moveEventFile: "moveEventForPC.json",
+			upEventFile: "upEventForPC.json",
+			correct: { x: -200 },
 		},
 		scrollEvent: {
 			eventFile: "scrollEventForPC.json", //wheel down
@@ -49,15 +54,15 @@ describe("unittest for ZoomPanManager", () => {
 			mock_checkLoadCompletedFunc,
 			mock_getObjectAtPointFunc,
 			mock_getIntValueFunc,
-			mock_getRootSvg2CanvasFunc,
-			mock_mapViewerProps;
+			mock_getRootSvg2CanvasFunc;
 		beforeAll(() => {
 			mock_hideTickerFunc = jest.fn();
 			mock_checkLoadCompletedFunc = jest.fn();
 			mock_getObjectAtPointFunc = jest.fn();
 			mock_getIntValueFunc = jest.fn();
-			mock_getRootSvg2CanvasFunc = jest.fn();
-			mock_mapViewerProps = { uaProps: { isIE: false } }; // IEは対象外とするため固定です
+			mock_getRootSvg2CanvasFunc = jest
+				.fn()
+				.mockReturnValue({ a: 1, b: 0, c: 0, d: 1 }); // 仮置き
 
 			zoompanmanager = new ZoomPanManager(
 				mock_hideTickerFunc,
@@ -99,24 +104,37 @@ describe("unittest for ZoomPanManager", () => {
 		});
 
 		it("左クリックでのPAN", async () => {
-			const click = await fs.readFile(
-				basePath + device.clickEvent.eventFile,
+			const down = await fs.readFile(
+				basePath + device.dragEvent.downEventFile,
 				"UTF-8"
 			);
-			const clickEventData = JSON.parse(click);
-			const drag = await fs.readFile(
-				basePath + device.dragEvent.eventFile,
+			const move = await fs.readFile(
+				basePath + device.dragEvent.moveEventFile,
 				"UTF-8"
 			);
-			const dragEventData = JSON.parse(drag);
-			let result = zoompanmanager.startPan(clickEventData);
+			const up = await fs.readFile(
+				basePath + device.dragEvent.upEventFile,
+				"UTF-8"
+			);
+			const downEventData = JSON.parse(down);
+			const moveEventData = JSON.parse(move);
+			const upEventData = JSON.parse(up);
+			let result = zoompanmanager.startPan(downEventData);
 			expect(result).toBe(false);
-			result = zoompanmanager.showPanning(dragEventData);
+			result = zoompanmanager.showPanning(moveEventData);
+			expect(result).toBe(false);
+			result = zoompanmanager.showPanning(upEventData);
 			expect(result).toBe(false);
 			expect(mock_getObjectAtPointFunc).toHaveBeenCalledWith(
 				device.clickEvent.correct.x,
 				device.clickEvent.correct.y
 			);
+			expect(mock_svgmapObj.setRootViewBox).toHaveBeenCalledWith({
+				y: expect.anything(),
+				x: -200,
+				width: expect.anything(),
+				height: expect.anything(),
+			});
 		});
 		// it("StartZoom-EndZoom. 右クリックでのZoom", async () => {
 		// 	const json = await fs.readFile(
