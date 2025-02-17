@@ -2693,8 +2693,8 @@ class SvgMap {
 	**/
 	/**
 	 *
-	 * @param  {...any} params
-	 * @returns
+	 * @param {Document} svgPoiNode
+	 * @returns {{x:number, y:number, nonScaling:boolean}} x,y,nonScalingを含む座標オブジェクト
 	 */
 	getPoiPos(...params) {
 		return UtilFuncs.getNonScalingOffset(...params);

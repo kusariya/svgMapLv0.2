@@ -493,7 +493,7 @@ class UtilFuncs {
 	/**
 	 *
 	 * @param {Document} svgPoiNode
-	 * @returns {Object} x,y,nonScalingを含む座標オブジェクト
+	 * @returns {{x:number, y:number, nonScaling:boolean}} x,y,nonScalingを含む座標オブジェクト
 	 */
 	static getNonScalingOffset(svgPoiNode) {
 		// getPoiPosから改称 2018.3.2
