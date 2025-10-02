@@ -5,7 +5,7 @@
 import { ShowPoiProperty } from "../../libs/ShowPoiProperty";
 import { mock_svgmapObj } from "./resources/mockParamerters";
 import { UtilFuncs } from "../../libs/UtilFuncs";
-import { expect, jest } from "@jest/globals";
+import { jest } from "@jest/globals";
 
 describe("unittest for ShowPoiProperty", () => {
 	describe("target ShowPoiProperty class", () => {
