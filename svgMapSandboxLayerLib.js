@@ -14,11 +14,11 @@ import {
 	MatrixUtil,
 	GenericMatrix,
 	Mercator,
-} from "https://cdn.jsdelivr.net/gh/svgmap/svgmapjs@latest/libs/TransformLib.js";
+} from "./libs/TransformLib.js";
 
-import { UtilFuncs } from "https://cdn.jsdelivr.net/gh/svgmap/svgmapjs@latest/libs/UtilFuncs.js";
-import { SVGMapVectorFileRenderer } from "https://cdn.jsdelivr.net/gh/svgmap/svgmapjs@latest/libs/SVGMapVectorFileRenderer.js";
-import { KMLParser } from "https://cdn.jsdelivr.net/gh/svgmap/svgmapjs@latest/libs/KMLParser.js";
+import { UtilFuncs } from "./libs/UtilFuncs.js";
+import { SVGMapVectorFileRenderer } from "./libs/SVGMapVectorFileRenderer.js";
+import { KMLParser } from "./libs/KMLParser.js";
 
 let messaging;
 window.addEventListener("DOMContentLoaded", initSandboxLayer); // 直接これを呼んだ場合はこちらが発動
